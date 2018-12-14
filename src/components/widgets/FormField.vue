@@ -46,55 +46,82 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 })
 export default class FormField extends Vue {
 
+  /**
+   * The name of the icon.
+   */
   @Prop({ default: '' })
   public icon!: string;
 
+  /**
+   * The label of the field.
+   */
   @Prop({ default: '' })
   public fieldLabel!: string;
 
+  /**
+   * The current input value.
+   */
   @Prop({ default: '' })
   public fieldValue!: string;
 
+  /**
+   * The placeholder of the field.
+   */
   @Prop({ default: '' })
   public fieldPlaceholder!: string;
 
+  /**
+   * If the field value can be copied by clicking on the field.
+   */
   @Prop({ default: false })
   public isCopyable!: boolean;
 
+  /**
+   * If the field is readonly.
+   */
   @Prop({ default: false })
   public isReadonly!: boolean;
 
+  /**
+   * If the alternative style should be used.
+   */
   @Prop({ default: false })
   public isAlternative!: boolean;
 
+  /**
+   * If the outline style should be used.
+   */
   @Prop({ default: false })
   public isOutlined!: boolean;
 
+  /**
+   * The list of action buttons.
+   */
   @Prop({ default: () => [] })
   public actionList!: any[];
 
+  /**
+   * If the field value was recently copied to the clipboard.
+   */
   private copied = false;
 
+  /**
+   * Copies the value to the clipboard
+   */
   private copyValue() {
-    if (this.isCopyable) {
-      const el = document.createElement('textarea');
-      el.value = this.fieldValue;
-      document.body.appendChild(el);
-      el.select();
-      document.execCommand('copy');
-      document.body.removeChild(el);
-      this.copied = true;
-      setTimeout(() => this.copied = false, 1000);
-    }
+    const el = document.createElement('textarea');
+    el.value = this.fieldValue;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    this.copied = true;
+    setTimeout(() => this.copied = false, 1000);
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.form-field {
-
-}
-
 .form-field__input {
   width: 100%;
   flex-grow: 1;

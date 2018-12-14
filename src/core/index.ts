@@ -1,9 +1,9 @@
-import { Secret } from './secret';
-import Generator from './generator';
-import Encrypter from './encrypter';
+import { Gsalt } from './gsalt';
+import { Generator } from './generator';
+import { Encrypter } from './encrypter';
 
 export default {
-  Secret,
+  Gsalt,
   Generator,
   Encrypter,
 };

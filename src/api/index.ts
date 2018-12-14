@@ -1,36 +1,57 @@
 import axios from 'axios';
-import { Secret } from '@/core/secret';
+import { Gsalt } from '@/core/gsalt';
 
 const instance = axios.create({
   baseURL: process.env.VUE_APP_API_BASE_URL,
   timeout: 1000,
 });
 
-function storeSecret(secret: Secret, encryptedSecret: any) {
+/**
+ * Stores the given secret.
+ * @param gsalt The gsalt object to use
+ * @param encryptedSecret The encrypted string to use
+ * @returns The id of the created secret
+ */
+function storeSecret(gsalt: Gsalt, encryptedSecret: any): Promise<string> {
   return instance.post('/secret', {
     secret: encryptedSecret,
-    hash: secret.getHash(),
-  }).then((response) => response.data);
+    hash: gsalt.getHash(),
+  }).then((response) => response.data.id);
 }
 
-function fetchSecret(secret: Secret) {
-  return instance.get(`/secret/${secret.getId()}`, {
+/**
+ * Fetches the given secret.
+ * @param gsalt The gsalt object
+ * @returns
+ */
+function fetchSecret(gsalt: Gsalt): Promise<{ secret: string, validityInSeconds: number }> {
+  return instance.get(`/secret/${gsalt.id}`, {
     params: {
-      hash: secret.getHash(),
+      hash: gsalt.getHash(),
     },
-  }).then((response) => response.data);
+  }).then((response) => ({
+    secret: response.data.secret,
+    validityInSeconds: response.data.validityInSeconds,
+  }));
 }
 
-function deleteSecret(secret: Secret) {
-  return instance.delete(`/secret/${secret.getId()}`, {
+/**
+ * Deletes the given secret.
+ * @param gsalt The gsalt object
+ * @returns A promise without any data
+ */
+function deleteSecret(gsalt: Gsalt): Promise<void> {
+  return instance.delete(`/secret/${gsalt.id}`, {
     params: {
-      hash: secret.getHash(),
+      hash: gsalt.getHash(),
     },
-  }).then((response) => response.data);
+  }).then(() => undefined);
 }
 
-export default {
-  storeSecret,
-  fetchSecret,
-  deleteSecret,
+export const api = {
+  secret: {
+    store: storeSecret,
+    fetch: fetchSecret,
+    delete: deleteSecret,
+  },
 };

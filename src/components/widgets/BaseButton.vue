@@ -1,9 +1,11 @@
 <template>
-  <button :type="isSubmit ? 'submit' : 'button'"
-          :class="{ 'btn--link-style': linkStyle,
-                    'btn--is-loading': isLoading,
-                    'btn--is-disabled': isDisabled }" class="btn"
-          @click="raiseClickEvent()">
+  <button 
+    :type="isSubmit ? 'submit' : 'button'"
+    :disabled="isLoading || isDisabled"
+    :class="classes"
+    class="btn"
+    @click="raiseClickEvent()"
+  >
     <slot></slot>
   </button>
 </template>
@@ -14,18 +16,44 @@ import { Vue, Prop, Component } from 'vue-property-decorator';
 @Component
 export default class BaseButton extends Vue {
 
+  /**
+   * If the button is a submit button.
+   */
   @Prop({ default: false })
-  public isSubmit!: boolean;
+  private isSubmit!: boolean;
 
+  /**
+   * If the button should have the link style.
+   */
   @Prop({ default: false })
-  public linkStyle!: boolean;
+  private linkStyle!: boolean;
 
+  /**
+   * If parent is currently loading (disabled + loading style).
+   */
   @Prop({ default: false })
-  public isLoading!: boolean;
+  private isLoading!: boolean;
 
+  /**
+   * If the button is currently disabled.
+   */
   @Prop({ default: false })
-  public isDisabled!: boolean;
+  private isDisabled!: boolean;
 
+  /**
+   * Getter for the classes of the button.
+   */
+  private get classes(): object {
+    return {
+      'btn--link-style': this.linkStyle,
+      'btn--is-loading': this.isLoading,
+      'btn--is-disabled': this.isDisabled,
+    };
+  }
+
+  /**
+   * Emits the click event if the button is not disabled.
+   */
   private raiseClickEvent() {
     if (!this.isDisabled && !this.isLoading) {
       this.$emit('click');

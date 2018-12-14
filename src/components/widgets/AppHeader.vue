@@ -1,5 +1,5 @@
 <template>
-  <div class="app-header">
+  <header class="app-header">
     <router-link :to="{ name: 'SecretCreation' }" class="app-logo">
       <div class="app-logo__title">gsalted</div>
       <div class="app-logo__dots">
@@ -8,7 +8,7 @@
         <div></div>
       </div>
     </router-link>
-  </div>
+  </header>
 </template>
 
 <script lang="ts">
@@ -69,5 +69,4 @@ export default class AppHeader extends Vue {}
     position: inherit;
   }
 }
-
 </style>

@@ -14,13 +14,14 @@
           Your buddy should have sent you a key.
           Please enter it here so we can find out what the secret is.
         </p>
-        <FormField v-model="key"
-              icon="dripicons-lock"
-              fieldLabel="Key"
-              fieldPlaceholder="Enter the key"
-              :isReadonly="state.isDecrypted"
-              :isCopyable="state.isDecrypted"
-              :isAlternative="true" />
+        <FormField 
+          v-model="gsalt.key"
+          icon="dripicons-lock"
+          fieldLabel="Key"
+          fieldPlaceholder="Enter the key"
+          :isReadonly="state.isDecrypted"
+          :isCopyable="state.isDecrypted"
+          :isAlternative="true" />
       </div>
 
       <div class="form__group">
@@ -39,12 +40,13 @@
           <p>
             Yeah, here is your secret:
           </p>
-          <FormField v-model="secretText"
-              icon="dripicons-jewel"
-              fieldLabel="Secret"
-              :isReadonly="state.isDecrypted"
-              :isCopyable="state.isDecrypted"
-              :isAlternative="true" />
+          <FormField 
+            v-model="secret"
+            icon="dripicons-jewel"
+            fieldLabel="Secret"
+            :isReadonly="state.isDecrypted"
+            :isCopyable="state.isDecrypted"
+            :isAlternative="true" />
           <p class="small" v-if="!state.isDeleted">
             We'll automatically delete your secret after 24 hours. <br />You can
             <a class="text-link" @click="deleteSecret()">delete it right now</a> if you want.
@@ -56,11 +58,13 @@
       </div>
 
       <div class="form__controls form__controls--columned">
-        <BaseButton v-if="!state.isDecrypted"
-                     :isLoading="state.isLoading"
-                     :isDisabled="!isSecretDecryptionEnabled"
-                     :isSubmit="true">
-            Decrypt Secret
+        <BaseButton 
+          v-if="!state.isDecrypted"
+          :isLoading="state.isLoading"
+          :isDisabled="!isSecretDecryptionEnabled"
+          :isSubmit="true"
+        >
+          Decrypt Secret
         </BaseButton>
       </div>
     </form>
@@ -69,9 +73,8 @@
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
-import core from '@/core';
-import api from '@/api';
-
+import { api } from '@/api';
+import { Gsalt } from '@/core/gsalt';
 import FormField from './widgets/FormField.vue';
 import BaseButton from './widgets/BaseButton.vue';
 
@@ -80,12 +83,28 @@ import BaseButton from './widgets/BaseButton.vue';
 })
 export default class SecretView extends Vue {
 
+  /**
+   * The id of the secret.
+   */
   @Prop({ required: true })
   public id!: string;
 
-  private key: string = '';
-  private randomKey: string = window.location.hash.substr(1);
-  private secretText: string | null = null;
+  /**
+   * The gsalt object.
+   */
+  private gsalt = new Gsalt();
+
+  /**
+   * The encrypted secret object, after it has been fetched from the backend.
+   */
+  private encrypted = {
+    secret: '',
+    validityInSeconds: 0,
+  };
+
+  /**
+   * The current state.
+   */
   private state = {
     isError: false,
     isLoading: false,
@@ -93,25 +112,45 @@ export default class SecretView extends Vue {
     isDecrypted: false,
   };
 
+  /**
+   * Getter for the decrypted secret.
+   * @returns The encrypted secret or null if it's not available
+   */
+  private get secret(): string | null {
+    if (this.encrypted) {
+      return this.gsalt.decrypt(this.encrypted.secret);
+    }
+    return null;
+  }
+
+  /**
+   * Checks if the description is possible.
+   */
   private get isSecretDecryptionEnabled() {
     return (
-      !(this.key.length === 0 ||
-      this.secretText !== null ||
-      this.state.isLoading ||
-      this.state.isDeleted)
+      this.gsalt.key &&
+      this.gsalt.id &&
+      this.state.isLoading === false &&
+      this.state.isDeleted === false
     );
   }
 
-   private loadSecret() {
-    if (!this.isSecretDecryptionEnabled) {
-      return;
-    }
+  /**
+   * Mounted Hook of Vue.
+   */
+  private mounted() {
+    const randomKey = window.location.hash.substr(1);
+    this.gsalt = new Gsalt('', randomKey, this.id);
+  }
 
+  /**
+   * Loads the encrypted secret from the API.
+   */
+   private loadSecret() {
     this.state.isLoading = true;
 
-    const secret = new core.Secret(this.key, this.randomKey, this.id);
-    api.fetchSecret(secret).then((data) => {
-      this.secretText = secret.decrypt(data.secret);
+    api.secret.fetch(this.gsalt).then((data) => {
+      this.encrypted = data;
       this.state.isLoading = false;
       this.state.isError = false;
       this.state.isDecrypted = true;
@@ -121,9 +160,11 @@ export default class SecretView extends Vue {
     });
   }
 
+  /**
+   * Deletes the secret from the server.
+   */
   private deleteSecret() {
-    const secret = new core.Secret(this.key, this.randomKey, this.id);
-    api.deleteSecret(secret);
+    api.secret.delete(this.gsalt);
     this.state.isDeleted = true;
   }
 }

@@ -1,11 +1,11 @@
 <template>
-  <div class="app-footer">
+  <footer class="app-footer">
     <div>
       Made with <i class="dripicons-heart"></i> in Lucerne, Switzerland &middot;
       <a href="https://gsmylt.com" target="_blank" class="text-link">gsmylt</a> &middot;
       <a href="https://gsmylt.com/gsalted" target="_blank" class="text-link">About</a>
     </div>
-  </div>
+  </footer>
 </template>
 
 <script lang="ts">
