@@ -15,6 +15,7 @@ const instance = axios.create({
 function storeSecret(gsalt: Gsalt, encryptedSecret: any): Promise<string> {
   return instance.post('/secret', {
     secret: encryptedSecret,
+    validityInSeconds: gsalt.validityInSeconds,
     hash: gsalt.getHash(),
   }).then((response) => response.data.id);
 }

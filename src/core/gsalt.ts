@@ -18,6 +18,11 @@ export class Gsalt {
   public randomKey: string = '';
 
   /**
+   * How long the gsalt is valid.
+   */
+  public validityInSeconds: number = 24 * 60 * 60;
+
+  /**
    * Constructor.
    * @param key The key of the gsalt
    * @param randomKey The random key of the gsalt, will automatically be created if omitted
