@@ -83,7 +83,7 @@
             fieldLabel="Link"
             :isCopyable="true" />
           <p class="small">
-            We'll automatically delete your secret after {{autoDeleteTime}}. <br /> You can
+            We'll automatically delete your secret in {{autoDeleteTime}}. <br /> You can
             <a class="text-link" @click="deleteSecret()">delete it right now</a> if you want.
           </p>
         </div>

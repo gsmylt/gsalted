@@ -1,4 +1,4 @@
-declare module 'vue-clipboard2' {
+declare module 'vue-timeago' {
   const value: any;
   export default value;
 }

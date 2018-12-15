@@ -48,7 +48,8 @@
             :isCopyable="state.isDecrypted"
             :isAlternative="true" />
           <p class="small" v-if="!state.isDeleted">
-            We'll automatically delete your secret after 24 hours. <br />You can
+            We'll automatically delete your secret
+            <timeago :datetime="deletionDate"></timeago>. <br />You can
             <a class="text-link" @click="deleteSecret()">delete it right now</a> if you want.
           </p>
           <p class="text-success" v-else>
@@ -72,6 +73,7 @@
 </template>
 
 <script lang="ts">
+
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import { api } from '@/api';
 import { Gsalt } from '@/core/gsalt';
@@ -111,6 +113,15 @@ export default class SecretView extends Vue {
     isDeleted: false,
     isDecrypted: false,
   };
+
+  /**
+   * The date when the secret gets deleted.
+   */
+  private get deletionDate() {
+    const now = new Date();
+    now.setSeconds(now.getSeconds() + this.encrypted.validityInSeconds);
+    return now;
+  }
 
   /**
    * Getter for the decrypted secret.
