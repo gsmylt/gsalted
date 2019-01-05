@@ -10,7 +10,7 @@
           We use client-side encryption to ensure that no one else than you and your buddy can read your passwords.
         </p>
         <div>
-          <BaseButton btn-style="secondary" color="light">Let's share</BaseButton>
+          <BaseButton @click="goToSecretCreation()" btn-style="secondary" color="light">Let's share</BaseButton>
         </div>
       </div>
       <div class="hero__drawing"></div>
@@ -25,7 +25,14 @@ import BaseButton from '@/components/base/BaseButton.vue';
 @Component({
   components: { BaseButton },
 })
-export default class HeroScreen extends Vue {}
+export default class HeroScreen extends Vue {
+  /**
+   * Opens the secret creation page.
+   */
+  private goToSecretCreation() {
+    this.$router.push({ name: 'SecretCreation' });
+  }
+}
 </script>
 
 <style lang="scss" scoped>
