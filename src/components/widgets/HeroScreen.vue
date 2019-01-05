@@ -2,11 +2,11 @@
   <div class="hero container">
     <div class="hero__content container-content">
       <div class="hero__text">
-        <h1>Sending secrets made secure.</h1>
-        <p>
+        <h1 class="hero__title desktop">Sending secrets made secure.</h1>
+        <p class="desktop">
           From time to time you need to share a password or some other secret with your buddy. gsalted helps you to transfer secrets in a secure way.
         </p>
-        <p>
+        <p class="desktop">
           We use client-side encryption to ensure that no one else than you and your buddy can read your passwords.
         </p>
         <div>
@@ -14,6 +14,7 @@
         </div>
       </div>
       <div class="hero__drawing"></div>
+      <h1 class="hero__title mobile">Sending secrets made secure.</h1>
     </div>
   </div>
 </template>
@@ -50,16 +51,18 @@ export default class HeroScreen extends Vue {
   padding: space(96) 0;
 }
 
+.hero__title {
+  margin-bottom: space(32);
+  color: color(contrast);
+  font-size: font-size(30);
+  font-weight: font-weight(medium);
+  line-height: 1.2;
+}
+
 .hero__text {
   width: 40%;
   flex: 0 0 auto;
   color: color(contrast);
-
-  h1 {
-    margin-bottom: space(32);
-    font-size: font-size(30);
-    font-weight: font-weight(medium);
-  }
 
   p {
     color: color(primary, 200);
@@ -81,5 +84,60 @@ export default class HeroScreen extends Vue {
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.mobile {
+  display: none;
+}
+
+.desktop {
+  display: block;
+}
+
+@media only screen and (max-width: 72rem) {
+  .hero__text {
+    width: 50%;
+  }
+
+  .hero__drawing {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 62rem) {
+  .mobile { display: block; }
+  .desktop { display: none; }
+
+  .hero__content {
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+
+  .hero__title,
+  .hero__text {
+    width: auto;
+  }
+
+  .hero__drawing {
+    width: 100%;
+    max-width: 38rem;
+    min-height: 400px;
+    align-self: initial;
+    margin-bottom: space(32);
+    background-position: 100% center;
+  }
+}
+
+@media only screen and (max-width: 38rem) {
+  .hero__drawing {
+    min-height: 300px;
+    background-position: center;
+  }
+}
+
+@media only screen and (max-width: 30rem) {
+  .hero__drawing {
+    min-height: 200px;
+  }
 }
 </style>
