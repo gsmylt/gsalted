@@ -3,6 +3,7 @@
     :stepNumber="2"
     stepTitle="Get the secret"
     :isOpen="isActive"
+    :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     :isLast="true"
     @activate="$emit('activate')"
@@ -75,6 +76,12 @@ export default class ShareStep extends Vue {
    */
   @Prop({ default: false })
   public isDeleted!: boolean;
+
+  /**
+   * If the step was already finished.
+   */
+  @Prop({ default: false })
+  public isFinished!: boolean;
 
   /**
    * The list of actions for the secret.

@@ -3,6 +3,7 @@
     :stepNumber="1"
     stepTitle="Your secret"
     :isOpen="isActive"
+    :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     :isFirst="true"
     @activate="$emit('activate')"
@@ -56,6 +57,12 @@ export default class SecretStep extends Vue {
    */
   @Prop({ required: true })
   public secret!: string;
+
+  /**
+   * If the step was already finished.
+   */
+  @Prop({ default: false })
+  public isFinished!: boolean;
 
   /**
    * The list of actions for the secret input.

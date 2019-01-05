@@ -7,7 +7,12 @@
     <div class="step__line"></div>
     <div class="step__card card">
       <a @click="!isOpen && !isDisabledIfInactive && $emit('activate')" class="card__header">
-        <div class="card__number step-number" :class="{ 'step-number--is-active': isOpen }">{{ stepNumber }}</div>
+        <div v-if="isFinished && !isOpen" class="card__number step-number">
+          <i class="bx bx-check"></i>
+        </div>
+        <div v-else class="card__number step-number" :class="{ 'step-number--is-active': isOpen }">
+          {{ stepNumber }}
+        </div>
         <div class="card__title">{{ stepTitle }}</div>
       </a>
       <div class="card__content">
@@ -67,6 +72,15 @@ export default class StepCard extends Vue {
   @Prop({ default: false })
   public isOpen!: boolean;
 
+  /**
+   * If the step was already finished.
+   */
+  @Prop({ default: false })
+  public isFinished!: boolean;
+
+  /**
+   * Scrolls to the given position if the isOpen property changes to true.
+   */
   @Watch('isOpen')
   public handleScroll(isOpen: boolean) {
     if (isOpen) {
@@ -181,6 +195,7 @@ $duration: 300ms;
 
   .step.step--is-disabled & {
     color: color(neutral, 300);
+    user-select: none;
   }
 }
 

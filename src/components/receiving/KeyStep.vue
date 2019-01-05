@@ -3,6 +3,7 @@
     :stepNumber="1"
     stepTitle="The key for decryption"
     :isOpen="isActive"
+    :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     :isFirst="true"
     @activate="$emit('activate')"
@@ -56,6 +57,12 @@ export default class KeyStep extends Vue {
    */
   @Prop({ required: true })
   public decryptionKey!: string;
+
+  /**
+   * If the step was already finished.
+   */
+  @Prop({ default: false })
+  public isFinished!: boolean;
 
   /**
    * If the next button is enabled

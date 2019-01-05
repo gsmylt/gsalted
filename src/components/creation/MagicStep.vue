@@ -3,6 +3,7 @@
     :stepNumber="3"
     stepTitle="Do the magic"
     :isOpen="isActive"
+    :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     @activate="$emit('activate')"
   >
@@ -46,6 +47,12 @@ export default class MagicStep extends Vue {
    */
   @Prop({ default: false })
   public isActive!: boolean;
+
+  /**
+   * If the step was already finished.
+   */
+  @Prop({ default: false })
+  public isFinished!: boolean;
 
   /**
    * If the assistant is currently loading.

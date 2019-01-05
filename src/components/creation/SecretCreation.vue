@@ -9,6 +9,7 @@
           <SecretStep
             :isDisabledIfInactive="state.currentStep === 4 || this.state.isLoading"
             :isActive="state.currentStep === 1"
+            :isFinished="state.currentStep > 1"
             :secret="secret"
             @secretChange="updateSecret"
             @activate="activateStep(1)"
@@ -17,6 +18,7 @@
           <KeyStep
             :isDisabledIfInactive="[1,4].includes(state.currentStep) || this.state.isLoading"
             :isActive="state.currentStep === 2"
+            :isFinished="state.currentStep > 2"
             :encryptionKey="gsalt.key"
             @keyChange="updateKey"
             @activate="activateStep(2)"
@@ -25,6 +27,7 @@
           <MagicStep
             :isDisabledIfInactive="true"
             :isActive="state.currentStep === 3"
+            :isFinished="state.currentStep > 3"
             :isLoading="state.isLoading"
             @activate="activateStep(3)"
             @next="createLink()" />
@@ -32,6 +35,7 @@
           <ShareStep
             :isDisabledIfInactive="true"
             :isActive="state.currentStep === 4"
+            :isFinished="state.currentStep > 4"
             :secret="secret"
             :encryptionKey="gsalt.key"
             :link="link"
