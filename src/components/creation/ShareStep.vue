@@ -49,7 +49,7 @@
 
     <div slot="controls" class="card-controls">
       <div>
-        <BaseButton @click="$emit('delete')" iconBefore="bx-trash" btnStyle="outline" color="danger">Delete secret</BaseButton>
+        <BaseButton @click="$emit('delete')" btnStyle="outline" color="danger">Delete secret</BaseButton>
       </div>
       <div>
         <BaseButton @click="$emit('reset')" btnStyle="primary">Share a new secret</BaseButton>
@@ -205,6 +205,15 @@ export default class ShareStep extends Vue {
   display: flex;
   justify-content: space-between;
   margin-top: space(16);
+
+  @media only screen and (max-width: 28rem) {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+
+    div {
+      margin-bottom: space();
+    }
+  }
 }
 
 </style>

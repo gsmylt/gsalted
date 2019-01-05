@@ -28,21 +28,12 @@
 
     <div slot="controls" class="card-controls">
       <div>
-        <BaseButton
-          v-if="!isDeleted"
-          @click="$emit('delete')"
-          iconBefore="bx-trash"
-          btnStyle="outline"
-          color="danger"
-        >
-          Delete secret
-        </BaseButton>
+        <BaseButton v-if="!isDeleted" @click="$emit('delete')" btnStyle="outline" color="danger">Delete secret</BaseButton>
       </div>
       <div>
         <BaseButton @click="$emit('new')" btnStyle="primary">Share your own secret</BaseButton>
       </div>
     </div>
-    
   </StepCard>
 </template>
 

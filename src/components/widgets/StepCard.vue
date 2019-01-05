@@ -198,6 +198,9 @@ $duration: 300ms;
   font-size: font-size(24);
   font-weight: font-weight(medium);
   line-height: 32px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   .step.step--is-open & {
     color: color(primary);

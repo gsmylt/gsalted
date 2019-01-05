@@ -111,6 +111,7 @@ export default class BaseButton extends Vue {
   text-decoration: none;
   cursor: pointer;
   transition: all 180ms ease;
+  white-space: nowrap;
 
   &.btn--is-loading {
     position: relative;
