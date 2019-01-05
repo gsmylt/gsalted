@@ -2,43 +2,32 @@
   <div class="form-field">
     <div class="form-field__input-wrapper">
       <div class="form-field__icon" v-if="icon !== ''">
-        <i :class="icon"></i>
+        <i class="bx" :class="icon"></i>
       </div>
-      <template v-if="isCopyable">
-        <div :class="{ 'copy-area': isCopyable,
-                       'form-field__input--alternative': isAlternative,
-                       'form-field__input--is-outlined': isOutlined }"
-              class="form-field__input"
-              @click="copyValue()">
-          <div>{{fieldValue}}</div>
-          <div class="copy-area__message" v-if="copied">
-            <i class="icon dripicons-checkmark"></i>Copied
-          </div>
-        </div>
-      </template>
-      <template v-else>
-        <input :value="fieldValue"
-               :class="{ 'form-field__input--alternative': isAlternative }"
-               class="form-field__input"
-               :placeholder="fieldPlaceholder"
-               @keyup="$emit('change', $event.target.value)"
-               @change="$emit('change', $event.target.value)" />
-        <div class="form-field__actions">
-          <a v-for="(action, index) in actionList" :key="index"
-             class="action-buton"
-             @click="action.click()">
-            <i :class="action.icon"></i>
-          </a>
-        </div>
-      </template>
+      <input 
+        :type="isPassword && !isFocused ? 'password' : 'text'"
+        :value="fieldValue"
+        :class="{ 'form-field__input--alternative': isAlternative }"
+        class="form-field__input"
+        :placeholder="fieldPlaceholder"
+        :readonly="isReadonly"
+        @focus="isFocused = true"
+        @blur="isFocused = false"
+        @keyup="$emit('change', $event.target.value)"
+        @change="$emit('change', $event.target.value)" />
+    </div>
+    <div class="form-field__actions">
+      <ActionList :actions="actionList" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
+import ActionList from './ActionList.vue';
 
 @Component({
+  components: { ActionList },
   model: {
     prop: 'fieldValue',
     event: 'change',
@@ -89,10 +78,10 @@ export default class FormField extends Vue {
   public isAlternative!: boolean;
 
   /**
-   * If the outline style should be used.
+   * If the field is a password and the content should be hidden if not active.
    */
   @Prop({ default: false })
-  public isOutlined!: boolean;
+  public isPassword!: boolean;
 
   /**
    * The list of action buttons.
@@ -104,6 +93,11 @@ export default class FormField extends Vue {
    * If the field value was recently copied to the clipboard.
    */
   private copied = false;
+
+  /**
+   * If the input field is currently focused.
+   */
+  private isFocused = false;
 
   /**
    * Copies the value to the clipboard
@@ -122,16 +116,22 @@ export default class FormField extends Vue {
 </script>
 
 <style lang="scss" scoped>
+.form-field {
+  & + & {
+    margin-top: space(24);
+  }
+}
+
 .form-field__input {
   width: 100%;
   flex-grow: 1;
   display: block;
   margin: 0;
-  padding: 8px 16px;
+  padding: space(8) space();
   outline: none;
-  border-radius: 4px;
+  border-radius: radius();
   border: none;
-  color: #495057;
+  color: color(neutral, 700);
   font: inherit;
 }
 
@@ -143,23 +143,25 @@ export default class FormField extends Vue {
   display: flex;
   align-items: stretch;
   border-radius: 4px;
-  border: 1px solid #ced4da;
+  border: 1px solid color(neutral, 200);
 }
 
 .form-field__icon {
-  width: 60px;
+  width: space(48);
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
-  border-right: 1px solid #ced4da;
+  border-right: 1px solid color(neutral, 200);
   color: #ced4da;
   font-size: 1.4rem;
 }
 
 .form-field__actions {
   display: flex;
+  // justify-content: flex-end;
+  margin-top: space(12);
 }
 
 .form-field__icon i {
@@ -174,46 +176,7 @@ div.form-field__input {
 
 .form-field__input--alternative {
   font-family: "Lucida Console", Monaco, monospace;
-  font-size: 1.4rem;
+  font-size: font-size(18);
 }
 
-.form-field__input--is-outlined {
-  border-color: transparent;
-  color: #1c7ed6;
-}
-
-.action-buton {
-  width: 45px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.4rem;
-  color: #1c7ed6;
-  cursor: pointer;
-}
-
-.copy-area {
-  position: relative;
-  cursor: pointer;
-}
-
-.copy-area__message {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding-left: 16px;
-  background-color: #ffffff;
-  color: #37b24d;
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  font-size: 1.2rem;
-}
-
-.copy-area__message .icon {
-  display: flex;
-  margin-right: 8px;
-}
 </style>

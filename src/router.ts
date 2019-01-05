@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import SecretCreation from '@/components/SecretCreation.vue';
-import SecretView from '@/components/SecretView.vue';
+import HomeView from '@/components/HomeView.vue';
+import SecretCreation from '@/components/creation/SecretCreation.vue';
+import SecretView from '@/components/receiving/SecretView.vue';
 
 Vue.use(Router);
 
@@ -11,6 +12,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'Home',
+      component: HomeView,
+    },
+    {
+      path: '/share',
       name: 'SecretCreation',
       component: SecretCreation,
     },

@@ -1,0 +1,16 @@
+/* ------------------------------------------------------------------ *\
+   BASE
+\* ------------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, 
+body {
+  background-color: color(neutral, 100);
+  font-family: font();
+  font-weight: font-weight();
+  font-size: 100%;
+}

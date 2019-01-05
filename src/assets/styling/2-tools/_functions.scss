@@ -1,0 +1,49 @@
+/* ------------------------------------------------------------------ *\
+   FONT / TEXT
+\* ------------------------------------------------------------------ */
+@function font($style: 'normal') {
+  @return map-get($fonts, $style);
+}
+
+@function font-weight($weight: 'normal') {
+  @return map-get($font-weights, $weight);
+}
+
+@function font-size($size: 16) {
+  @return map-get($font-sizes, $size);
+}
+
+
+
+/* ------------------------------------------------------------------ *\
+   LAYOUT
+\* ------------------------------------------------------------------ */
+@function space($size: 16) {
+  @return map-get($spaces, $size);
+}
+
+@function shadow($level: 1) {
+  @return map-get($shadows, $level);
+}
+
+@function radius($size: 'normal') {
+  @return map-get($border-radius, $size);
+}
+
+
+
+/* ------------------------------------------------------------------ *\
+   ANIMATIONS
+\* ------------------------------------------------------------------ */
+@function duration($timing: 'normal') {
+  @return map-get($transition-durations, $timing);
+}
+
+
+
+/* ------------------------------------------------------------------ *\
+   COLORS
+\* ------------------------------------------------------------------ */
+@function color($color-name: 'primary', $color-variant: 500) {
+  @return map-get(map-get($colors, $color-name), $color-variant);
+}

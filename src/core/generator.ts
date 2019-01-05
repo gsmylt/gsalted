@@ -41,7 +41,7 @@ export class Generator {
    * @param length The length of the random key
    * @returns The random key
    */
-  public static randomKey(length = 48) {
+  public static randomKey(length = 128) {
     return createRandomValue(charsets.limited, length);
   }
 

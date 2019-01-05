@@ -1,4 +1,33 @@
 <template>
+  <AppLayout :has-background="true" class="layout">
+    <AppHeader />
+    <div class="container">
+      <div class="container-content">
+        <div class="secret-receiving">
+          
+          <KeyStep
+            :isDisabledIfInactive="state.currentStep === 2"
+            :isActive="state.currentStep === 1"
+            :decryptionKey="gsalt.key"
+            @keyChange="updateKey"
+            @next="loadSecret()" />
+
+          <SecretStep
+            :isDisabledIfInactive="state.currentStep === 1"
+            :isActive="state.currentStep === 2"
+            :secret="secret"
+            :isDeleted="state.isDeleted"
+            @delete="deleteSecret()"
+            @new="createNewSecret()" />
+
+        </div>
+      </div>
+
+    </div>
+    <AppFooter :separator="true" slot="footer" />
+  </AppLayout>
+
+  <!--
   <div class="main secret-vue">
     <form class="form" @submit.prevent="loadSecret()">
       <div class="form__group">
@@ -70,6 +99,7 @@
       </div>
     </form>
   </div>
+  -->
 </template>
 
 <script lang="ts">
@@ -77,11 +107,15 @@
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import { api } from '@/api';
 import { Gsalt } from '@/core/gsalt';
-import FormField from './widgets/FormField.vue';
-import BaseButton from './widgets/BaseButton.vue';
+import { Generator } from '@/core/generator';
+import AppLayout from './../widgets/AppLayout.vue';
+import AppHeader from './../widgets/AppHeader.vue';
+import AppFooter from './../widgets/AppFooter.vue';
+import KeyStep from './KeyStep.vue';
+import SecretStep from './SecretStep.vue';
 
 @Component({
-  components: { FormField, BaseButton },
+  components: { AppLayout, AppHeader, AppFooter, KeyStep, SecretStep },
 })
 export default class SecretView extends Vue {
 
@@ -108,6 +142,7 @@ export default class SecretView extends Vue {
    * The current state.
    */
   private state = {
+    currentStep: 1,
     isError: false,
     isLoading: false,
     isDeleted: false,
@@ -155,12 +190,28 @@ export default class SecretView extends Vue {
   }
 
   /**
+   * Updates the key.
+   * @param key The new key
+   */
+  private updateKey(key: string) {
+    this.gsalt.key = key;
+  }
+
+  /**
+   * Opens the secret creation page.
+   */
+  private createNewSecret() {
+    this.$router.push({ name: 'SecretCreation' });
+  }
+
+  /**
    * Loads the encrypted secret from the API.
    */
    private loadSecret() {
     this.state.isLoading = true;
 
     api.secret.fetch(this.gsalt).then((data) => {
+      this.state.currentStep = 2;
       this.encrypted = data;
       this.state.isLoading = false;
       this.state.isError = false;
@@ -180,3 +231,12 @@ export default class SecretView extends Vue {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.secret-receiving {
+  width: 100%;
+  max-width: 790px;
+  margin: 0 auto;
+  padding: space(96) 0;
+}
+</style>
