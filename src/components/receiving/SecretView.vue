@@ -224,8 +224,9 @@ export default class SecretView extends Vue {
    * Deletes the secret from the server.
    */
   private deleteSecret() {
-    api.secret.delete(this.gsalt);
-    this.state.isDeleted = true;
+    api.secret.delete(this.gsalt).then(() => {
+      this.state.isDeleted = true;
+    });
   }
 }
 </script>

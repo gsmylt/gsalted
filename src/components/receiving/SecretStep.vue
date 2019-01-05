@@ -28,7 +28,25 @@
 
     <div slot="controls" class="card-controls">
       <div>
-        <BaseButton v-if="!isDeleted" @click="$emit('delete')" btnStyle="outline" color="danger">Delete secret</BaseButton>
+        <BaseButton
+          v-if="!isDeleted"
+          @click="deleteSecret()"
+          iconBefore="bx-trash"
+          btnStyle="outline"
+          color="danger"
+          :isDisabled="isDeleting"
+        >
+          {{ isDeleting ? 'Deleting...' : 'Delete secret' }}
+        </BaseButton>
+        <BaseButton
+          v-else
+          btnStyle="outline"
+          color="primary"
+          iconBefore="bx-check"
+          :isDisabled="true"
+        >
+          Deleted
+        </BaseButton>
       </div>
       <div>
         <BaseButton @click="$emit('new')" btnStyle="primary">Share your own secret</BaseButton>
@@ -84,6 +102,11 @@ export default class ShareStep extends Vue {
   public isFinished!: boolean;
 
   /**
+   * If the user is currently deleting the secret.
+   */
+  private isDeleting = false;
+
+  /**
    * The list of actions for the secret.
    */
   private actions: Action[] = [
@@ -94,6 +117,14 @@ export default class ShareStep extends Vue {
       click: () => { copyToClipboard(this.secret); },
     },
   ];
+
+  /**
+   * Emits an event to delete the secret.
+   */
+  private deleteSecret() {
+    setTimeout(() => this.isDeleting = true, 100);
+    this.$emit('delete');
+  }
 }
 </script>
 
