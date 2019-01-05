@@ -111,6 +111,7 @@ import AppHeader from './../app/AppHeader.vue';
 import AppFooter from './../app/AppFooter.vue';
 import KeyStep from './KeyStep.vue';
 import SecretStep from './SecretStep.vue';
+import { MessageType } from '@/store/types';
 
 @Component({
   components: { AppLayout, AppHeader, AppFooter, KeyStep, SecretStep },
@@ -227,6 +228,11 @@ export default class SecretView extends Vue {
     api.secret.delete(this.gsalt).then(() => {
       this.state.isDeleted = true;
     });
+
+    this.$store.commit('toast', {
+      type: MessageType.SUCCESS,
+      message: 'We deleted your secret!',
+    })
   }
 }
 </script>

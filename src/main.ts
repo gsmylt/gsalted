@@ -3,6 +3,7 @@ import App from './App.vue';
 import router from './router';
 import VueTimeago from 'vue-timeago';
 import './assets/styling/styling.scss';
+import store from './store/index';
 
 Vue.config.productionTip = false;
 
@@ -10,5 +11,6 @@ Vue.use(VueTimeago);
 
 new Vue({
   router,
+  store,
   render: (h) => h(App),
 }).$mount('#app');

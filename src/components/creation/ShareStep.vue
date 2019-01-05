@@ -49,7 +49,7 @@
 
     <div slot="controls" class="card-controls">
       <div>
-        <BaseButton @click="$emit('delete')" btnStyle="outline" color="danger">Delete secret</BaseButton>
+        <BaseButton @click="$emit('delete')" iconBefore="bx-trash" btnStyle="outline" color="danger">Delete secret</BaseButton>
       </div>
       <div>
         <BaseButton @click="$emit('reset')" btnStyle="primary">Share a new secret</BaseButton>

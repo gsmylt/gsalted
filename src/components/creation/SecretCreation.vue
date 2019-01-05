@@ -60,11 +60,19 @@ import SecretStep from './SecretStep.vue';
 import KeyStep from './KeyStep.vue';
 import MagicStep from './MagicStep.vue';
 import ShareStep from './ShareStep.vue';
+import { Toast, MessageType } from '@/store/types';
 
 @Component({
   components: { AppLayout, AppHeader, AppFooter, SecretStep, KeyStep, MagicStep, ShareStep },
 })
 export default class SecretCreation extends Vue {
+
+  /**
+   * Getter for the link of the gsalt object.
+   */
+  private get link() {
+    return this.gsalt.createLink();
+  }
 
   /**
    * The current secret that should be encrypted.
@@ -81,18 +89,10 @@ export default class SecretCreation extends Vue {
    */
   private state = {
     currentStep: 1,
-    isError: false,
     isLoading: false,
     isGenerated: false,
     isDeleted: false,
   };
-
-  /**
-   * Getter for the link of the gsalt object.
-   */
-  private get link() {
-    return this.gsalt.createLink();
-  }
 
   /**
    * Updates the secret.
@@ -124,7 +124,6 @@ export default class SecretCreation extends Vue {
   private reset() {
     this.state.currentStep = 1;
     this.state.isGenerated = false;
-    this.state.isError = false;
     this.state.isLoading = false;
     this.state.isDeleted = false;
     this.gsalt = new Gsalt();
@@ -145,7 +144,6 @@ export default class SecretCreation extends Vue {
   private storeSecret() {
     this.state.isDeleted = false;
     this.state.isLoading = true;
-    this.state.isError = false;
 
     const encrypted = this.gsalt.encrypt(this.secret);
 
@@ -153,12 +151,14 @@ export default class SecretCreation extends Vue {
       this.gsalt.id = id;
       this.state.isLoading = false;
       this.state.isGenerated = true;
-      this.state.isError = false;
       this.activateStep(4);
     }).catch(() => {
       this.state.isLoading = false;
       this.state.isGenerated = false;
-      this.state.isError = true;
+      this.$store.commit('toast', {
+        type: MessageType.ERROR,
+        message: 'Something went wrong, please try again.',
+      });
     });
   }
 
@@ -167,8 +167,11 @@ export default class SecretCreation extends Vue {
    */
   private deleteSecret() {
     api.secret.delete(this.gsalt);
-    this.state.isDeleted = true;
     this.reset();
+    this.$store.commit('toast', {
+      message: 'Your secret has been deleted. Let\'s share a new one!',
+      type: MessageType.SUCCESS,
+    } as Toast);
   }
 }
 </script>
