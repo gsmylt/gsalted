@@ -1,112 +1,82 @@
 <template>
   <footer class="footer container">
     <div class="container-content">
-      <div v-if="separator" class="footer__separator"></div>
-      <div class="footer__header">
-        <AppLogo :gray="true" />
-      </div>
-      <div class="footer__main">
-        <nav class="nav-column">
-          <router-link :to="{ name: 'Home' }"><strong>gsalted.</strong></router-link>
-          <ul>
-            <li><router-link :to="{ name: 'SecretCreation' }">Share a secret</router-link></li>
-            <li><router-link :to="{ name: 'SecretView' }">Receive a secret</router-link></li>
-            <li><a href="">Security</a></li>
-          </ul>
-        </nav>
-        <nav class="nav-column">
-          <strong>Company</strong>
-          <ul>
-            <li><a href="https://gsmylt.com" target="_blank">About gsmylt</a></li>
-            <li><a href="https://gsmylt.com/projects" target="_blank">More products</a></li>
-          </ul>
-        </nav>
-        <nav class="nav-column">
-          <strong>Support</strong>
-          <ul>
-            <li><a href="mailto:hello@gsmylt.com">Get in touch</a></li>
-            <li><a href="https://github.com/gsmylt/gsalted/issues">Open an Issue</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="footer__copyright">
-        <div>
-          Made with <span class="heart"><i class="bx bxs-heart"></i></span> by <a href="https://gsmylt.com/" target="_blank">gsmylt</a> in Lucerne, Switzerland
+      <div class="footer__content">
+        <div class="footer__main">
+          <div class="footer__logo">
+            <AppLogo :gray="true" />
+          </div>
+          <div class="footer__copyright">
+            Made with <span class="heart"><i class="bx bxs-heart"></i></span> by <a href="https://gsmylt.com/" target="_blank">gsmylt</a> in Lucerne, Switzerland
+          </div>
         </div>
-        <div>
-          <a href="http://donate.sandroroth.com" target="_blank">Donate</a>
-        </div>
+        <ul class="footer__nav">
+          <li><a href="mailto:hello@gsmylt.com"><i class="bx bx-at"></i> Contact</a></li>
+          <li><a href="https://github.com/gsmylt/gsalted/issues" target="_blank"><i class="bx bx-bug"></i> Report a Bug</a></li>
+          <li><a href="http://donate.sandroroth.com" target="_blank"><i class="bx bx-dollar"></i> Donate</a></li>
+        </ul>
       </div>
     </div>
   </footer>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
+import { Vue, Component } from 'vue-property-decorator';
 import AppLogo from './AppLogo.vue';
 
 @Component({
   components: { AppLogo },
 })
-export default class AppFooter extends Vue {
-
-  /**
-   * If a separat should be shown at the top of the footer.
-   */
-  @Prop({ default: false })
-  public separator!: boolean;
-
-}
+export default class AppFooter extends Vue {}
 </script>
 
 <style lang="scss" scoped>
 .footer {
-  padding: space(48) 0 0;
+  padding: space(48) 0;
   background-color: color(neutral, 100);
 }
 
-.footer__separator {
-  height: 4px;
-  margin-bottom: space(48);
-  background-color: color(neutral, 200);
-}
-
-.footer__header {
-  margin-bottom: space(32);
-}
-
-.footer__main {
+.footer__content {
   display: flex;
-  color: color(neutral, 400);
+  justify-content: space-between;
 }
 
-.nav-column {
-  flex-grow: 0;
+.footer__nav {
+  display: flex;
 
-  & + & {
-    margin-left: space(96);
+  li + li {
+    margin-left: space(48);
   }
 
-  strong {
-    color: color(neutral);
+  a {
+    display: flex;
+    align-items: center;
+    color: color(neutral, 400);
+    font-size: font-size(14);
     font-weight: font-weight(medium);
+    line-height: 1.7;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+
+    .bx {
+      margin-right: space(4);
+    }
   }
-  
-  ul li {
-    margin-top: space();
-  }
+}
+
+.footer__logo {
+  margin-bottom: space();
 }
 
 .footer__copyright {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: space(32);
-  padding: space(32) 0;
-  border-top: 1px solid color(neutral, 200);
   color: color(neutral, 300);
   font-size: font-size(14);
   font-weight: font-weight(light);
+
+  a:hover {
+    text-decoration: underline;
+  }
 }
 
 .heart:hover .bx {
@@ -118,9 +88,5 @@ export default class AppFooter extends Vue {
 a {
   color: inherit;
   text-decoration: none;
-
-  &:hover {
-    text-decoration: underline;
-  }
 }
 </style>
