@@ -1,0 +1,14 @@
+.card-container {
+  width: 100%;
+  max-width: 50rem;
+  margin: 0 auto;
+  padding: space(96) 0;
+
+  @media only screen and (max-width: 57rem) {
+    padding-top: 50px;
+  }
+  
+  @media only screen and (max-width: 38rem) {
+    padding-top: space(32);
+  }
+}

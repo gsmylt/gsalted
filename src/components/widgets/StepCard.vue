@@ -259,4 +259,18 @@ $duration: 300ms;
     background-color: color(primary);
   }
 }
+
+@media only screen and (max-width: 38rem) {
+  .card {
+    .step:not(.step--is-open) & {
+      padding-bottom: calc(#{space(32)} - #{space(32)}); // Subtract the margin-top of .card__main
+    }
+  }
+
+  .card__main {
+    margin-top: space(32);
+    margin-left: 0;
+  }
+}
+
 </style>

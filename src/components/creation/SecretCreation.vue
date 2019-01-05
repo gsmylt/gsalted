@@ -5,7 +5,7 @@
     <div class="container">
       <div class="container-content">
 
-        <div class="secret-creation">
+        <div class="card-container">
           <SecretStep
             :isDisabledIfInactive="state.currentStep === 4 || this.state.isLoading"
             :isActive="state.currentStep === 1"
@@ -44,9 +44,7 @@
             @reset="reset()" />
         </div>
       </div>
-
     </div>
-
   </AppLayout>
 </template>
 
@@ -176,10 +174,5 @@ export default class SecretCreation extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.secret-creation {
-  width: 100%;
-  max-width: 790px;
-  margin: 0 auto;
-  padding: space(96) 0;
-}
+
 </style>

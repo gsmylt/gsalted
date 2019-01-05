@@ -3,7 +3,7 @@
     <AppHeader />
     <div class="container">
       <div class="container-content">
-        <div class="secret-receiving">
+        <div class="card-container">
           
           <KeyStep
             :isDisabledIfInactive="state.currentStep === 2"
@@ -22,9 +22,7 @@
 
         </div>
       </div>
-
     </div>
-    <AppFooter :separator="true" slot="footer" />
   </AppLayout>
 
   <!--
@@ -233,10 +231,5 @@ export default class SecretView extends Vue {
 </script>
 
 <style lang="scss" scoped>
-.secret-receiving {
-  width: 100%;
-  max-width: 790px;
-  margin: 0 auto;
-  padding: space(96) 0;
-}
+
 </style>
