@@ -96,6 +96,7 @@ export default class StepCard extends Vue {
    */
   public mounted() {
     this.updateMaxHeight();
+    window.addEventListener('resize', () => this.updateMaxHeight());
   }
 
   /**
@@ -106,12 +107,21 @@ export default class StepCard extends Vue {
   }
 
   /**
+   * BeforeDestroy hook of Vue.
+   */
+  public beforeDestroy() {
+    window.removeEventListener('resize', () => this.updateMaxHeight());
+  }
+
+  /**
    * Updates the max height of the main div depending on the content.
    */
   private updateMaxHeight() {
     const mainDiv = this.$refs.main as HTMLDivElement;
-    const elHeight = mainDiv.scrollHeight;
-    mainDiv.style.maxHeight = this.isOpen ? `${elHeight}px` : '';
+    if (mainDiv) {
+      const elHeight = mainDiv.scrollHeight;
+      mainDiv.style.maxHeight = this.isOpen ? `${elHeight}px` : '';
+    }
   }
 }
 </script>
@@ -205,7 +215,6 @@ $duration: 300ms;
   margin-top: space(16);
   margin-left: space(32) + space(12);
   overflow: hidden;
-  // transform: scaleY(0);
   transform-origin: top center;
   transition: transform $duration ease, max-height $duration ease, opacity $duration ease;
 
