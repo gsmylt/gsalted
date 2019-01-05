@@ -10,10 +10,16 @@
             Made with <span class="heart"><i class="bx bxs-heart"></i></span> by <a href="https://gsmylt.com/" target="_blank">gsmylt</a> in Lucerne, Switzerland
           </div>
         </div>
-        <ul class="footer__nav">
-          <li><a href="mailto:hello@gsmylt.com"><i class="bx bx-at"></i> Contact</a></li>
-          <li><a href="https://github.com/gsmylt/gsalted/issues" target="_blank"><i class="bx bx-bug"></i> Report a Bug</a></li>
-          <li><a href="http://donate.sandroroth.com" target="_blank"><i class="bx bx-dollar"></i> Donate</a></li>
+        <ul class="footer__nav nav">
+          <li class="nav__item">
+            <a class="nav__link" href="mailto:hello@gsmylt.com"><i class="bx bx-at"></i> Contact</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="https://github.com/gsmylt/gsalted/issues" target="_blank"><i class="bx bx-bug"></i> Report a Bug</a>
+          </li>
+          <li class="nav__item">
+            <a class="nav__link" href="http://donate.sandroroth.com" target="_blank"><i class="bx bx-dollar"></i> Donate</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -31,6 +37,7 @@ export default class AppFooter extends Vue {}
 </script>
 
 <style lang="scss" scoped>
+/* Footer */
 .footer {
   padding: space(48) 0;
   background-color: color(neutral, 100);
@@ -39,30 +46,6 @@ export default class AppFooter extends Vue {}
 .footer__content {
   display: flex;
   justify-content: space-between;
-}
-
-.footer__nav {
-  display: flex;
-
-  li + li {
-    margin-left: space(48);
-  }
-
-  a {
-    display: flex;
-    align-items: center;
-    color: color(neutral, 400);
-    font-size: font-size(14);
-    font-weight: font-weight(medium);
-    line-height: 1.7;
-    white-space: nowrap;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-
-    .bx {
-      margin-right: space(4);
-    }
-  }
 }
 
 .footer__logo {
@@ -88,5 +71,59 @@ export default class AppFooter extends Vue {}
 a {
   color: inherit;
   text-decoration: none;
+}
+
+
+
+/* Nav */
+.nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav__item {
+  & + & {
+    margin-left: space(48);
+  }
+}
+
+.nav__link {
+  display: flex;
+  align-items: center;
+  color: color(neutral, 400);
+  font-size: font-size(14);
+  font-weight: font-weight(medium);
+  line-height: 1.7;
+  white-space: nowrap;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  .bx {
+    margin-right: space(4);
+  }
+}
+
+@media only screen and (max-width: 53rem) {
+  .footer__content {
+    flex-direction: column;
+  }
+
+  .footer__nav {
+    margin-top: space(48);
+  }
+}
+
+@media only screen and (max-width: 35rem) {
+  .nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav__item {
+    & + & {
+      margin-top: space(16);
+      margin-left: 0;
+    }
+  }
 }
 </style>
