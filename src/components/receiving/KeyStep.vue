@@ -22,7 +22,15 @@
       fieldPlaceholder="Enter the key"
       :isAlternative="true"
     />
-    <BaseButton @click="$emit('next')" slot="controls" :isDisabled="!isNextEnabled" iconAfter="bx-chevron-right">Decrypt secret</BaseButton>
+    <BaseButton
+      @click="goToNext()"
+      slot="controls"
+      :isDisabled="!isNextEnabled"
+      :isLoading="isLoading"
+      iconAfter="bx-chevron-right"
+    >
+      Decrypt secret
+    </BaseButton>
   </StepCard>
 </template>
 
@@ -65,10 +73,20 @@ export default class KeyStep extends Vue {
   public isFinished!: boolean;
 
   /**
+   * If the secrets get currently loaded from the backend.
+   */
+  private isLoading = false;
+
+  /**
    * If the next button is enabled
    */
   private get isNextEnabled() {
     return this.decryptionKey.length > 0;
+  }
+
+  private goToNext() {
+    this.isLoading = true;
+    this.$emit('next');
   }
 
   /**
