@@ -67,6 +67,7 @@ export default class FeatureArea extends Vue {
   font-size: font-size(30);
   font-weight: font-weight(medium);
   text-align: center;
+  line-height: 1.2;
 }
 
 .area__features {
@@ -122,5 +123,48 @@ export default class FeatureArea extends Vue {
   line-height: 1.5;
 }
 
+@media only screen and (max-width: 80rem) {
+  .area__features {
+    max-width: 45rem;
+    margin-left: auto;
+    margin-right: auto;
+    flex-wrap: wrap;
+  }
 
+  .feature {
+    width: 40%;
+    
+    &:nth-child(n+3) {
+      margin-top: space(48);
+    }
+  }
+}
+
+@media only screen and (max-width: 50rem) {
+  .area__features {
+    max-width: none;
+  }
+
+  .feature {
+    width: 45%;
+  }
+}
+
+@media only screen and (max-width: 41rem) {
+  .area__title {
+    text-align: left;
+  }
+
+  .area__features {
+    flex-direction: columN
+  }
+
+  .feature {
+    width: 100%;
+    
+    & + & {
+      margin-top: space(32);
+    }
+  }
+}
 </style>
