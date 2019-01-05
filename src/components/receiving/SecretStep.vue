@@ -90,6 +90,7 @@ export default class ShareStep extends Vue {
     {
       icon: 'bx-copy',
       title: 'Copy to clipboard',
+      message: 'Copied',
       click: () => { copyToClipboard(this.secret); },
     },
   ];

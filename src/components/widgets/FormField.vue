@@ -160,7 +160,6 @@ export default class FormField extends Vue {
 
 .form-field__actions {
   display: flex;
-  // justify-content: flex-end;
   margin-top: space(12);
 }
 

@@ -118,6 +118,7 @@ export default class ShareStep extends Vue {
       {
         icon: 'bx-copy',
         title: 'Copy to clipboard',
+        message: 'Copied',
         click: () => { copyToClipboard(this.encryptionKey); },
       },
     ],
@@ -125,11 +126,13 @@ export default class ShareStep extends Vue {
       {
         icon: 'bx-copy',
         title: 'Copy to clipboard',
+        message: 'Copied',
         click: () => { copyToClipboard(this.link); },
       },
       {
         icon: 'bx-at',
         title: 'Send by mail',
+        message: 'Happy mailing',
         click: () => this.sendByMail(),
       },
     ],
@@ -137,6 +140,7 @@ export default class ShareStep extends Vue {
       {
         icon: 'bx-copy',
         title: 'Copy to clipboard',
+        message: 'Copied',
         click: () => { copyToClipboard(this.secret); },
       },
     ],

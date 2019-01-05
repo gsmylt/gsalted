@@ -71,6 +71,7 @@ export default class SecretStep extends Vue {
     {
       icon: 'bx-sync',
       title: 'Generate new',
+      message: 'Boom!',
       click: () => { this.createNewSecret(); },
     },
     /* TODO: Implement multiline secrets
