@@ -9,6 +9,7 @@
             :isDisabledIfInactive="state.currentStep === 2"
             :isActive="state.currentStep === 1"
             :decryptionKey="gsalt.key"
+            :isLoading="state.isLoading"
             @keyChange="updateKey"
             @next="loadSecret()" />
 
@@ -142,7 +143,6 @@ export default class SecretView extends Vue {
    */
   private state = {
     currentStep: 1,
-    isError: false,
     isLoading: false,
     isDeleted: false,
     isDecrypted: false,
@@ -208,16 +208,17 @@ export default class SecretView extends Vue {
    */
    private loadSecret() {
     this.state.isLoading = true;
-
     api.secret.fetch(this.gsalt).then((data) => {
       this.state.currentStep = 2;
       this.encrypted = data;
       this.state.isLoading = false;
-      this.state.isError = false;
       this.state.isDecrypted = true;
     }).catch(() => {
       this.state.isLoading = false;
-      this.state.isError = true;
+      this.$store.commit('toast', {
+        type: MessageType.ERROR,
+        message: 'Oh no, decryption failed. Please check your key!',
+      });
     });
   }
 
@@ -232,7 +233,7 @@ export default class SecretView extends Vue {
     this.$store.commit('toast', {
       type: MessageType.SUCCESS,
       message: 'We deleted your secret!',
-    })
+    });
   }
 }
 </script>

@@ -23,7 +23,7 @@
       :isAlternative="true"
     />
     <BaseButton
-      @click="goToNext()"
+      @click="$emit('next')"
       slot="controls"
       :isDisabled="!isNextEnabled"
       :isLoading="isLoading"
@@ -75,18 +75,14 @@ export default class KeyStep extends Vue {
   /**
    * If the secrets get currently loaded from the backend.
    */
-  private isLoading = false;
+  @Prop({ default: false })
+  public isLoading = false;
 
   /**
    * If the next button is enabled
    */
   private get isNextEnabled() {
     return this.decryptionKey.length > 0;
-  }
-
-  private goToNext() {
-    this.isLoading = true;
-    this.$emit('next');
   }
 
   /**
