@@ -16,7 +16,10 @@
       <div class="field">
         <div class="field__title">Secret</div>
         <div class="field__data">
-          <div class="field__value">
+          <div v-if="showSecret" class="field__value">
+            {{ secret }}
+          </div>
+          <div v-else class="field__value">
             <span v-for="i in secret.length" :key="i" class="dot">&bull;</span>
           </div>
         </div>
@@ -83,6 +86,11 @@ export default class ShareStep extends Vue {
   public isFinished!: boolean;
 
   /**
+   * If the secret is shown (instead of dots).
+   */
+  private showSecret = false;
+
+  /**
    * The list of actions for the secret.
    */
   private actions: Action[] = [
@@ -90,9 +98,21 @@ export default class ShareStep extends Vue {
       icon: 'bx-copy',
       title: 'Copy to clipboard',
       message: 'Copied',
-      click: () => { copyToClipboard(this.secret); },
+      click: () => copyToClipboard(this.secret),
+    },
+    {
+      icon: 'bx-show',
+      title: 'Toggle visibility',
+      click: () => this.toggleSecretVisibility(),
     },
   ];
+
+  /**
+   * Toggles the visibility of the secret.
+   */
+  private toggleSecretVisibility() {
+    this.showSecret = !this.showSecret;
+  }
 }
 </script>
 
@@ -121,6 +141,7 @@ export default class ShareStep extends Vue {
 
 .field__value {
   color: color(primary, 700);
+  font-family: font(mono);
   line-height: 1.5;
   word-break: break-all;
 
