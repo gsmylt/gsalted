@@ -61,6 +61,7 @@ import KeyStep from './KeyStep.vue';
 import MagicStep from './MagicStep.vue';
 import ShareStep from './ShareStep.vue';
 import { Toast, MessageType } from '@/store/types';
+import { setTimeout } from 'timers';
 
 @Component({
   components: { AppLayout, AppHeader, AppFooter, SecretStep, KeyStep, MagicStep, ShareStep },
@@ -168,10 +169,12 @@ export default class SecretCreation extends Vue {
   private deleteSecret() {
     api.secret.delete(this.gsalt);
     this.reset();
-    this.$store.commit('toast', {
-      message: 'Your secret has been deleted. Let\'s share a new one!',
-      type: MessageType.SUCCESS,
-    } as Toast);
+    setTimeout(() => {
+      this.$store.commit('toast', {
+        message: 'Your secret has been deleted. Let\'s share a new one!',
+        type: MessageType.SUCCESS,
+      } as Toast);
+    }, 500);
   }
 }
 </script>

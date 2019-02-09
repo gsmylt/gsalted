@@ -29,6 +29,7 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator';
 import { setTimeout } from 'timers';
+import { scrollToElement } from '@/core/utility';
 
 @Component({
   components: {  },
@@ -86,8 +87,8 @@ export default class StepCard extends Vue {
     if (isOpen) {
       setTimeout(() => {
         const card = this.$refs.card as HTMLDivElement;
-        card.scrollIntoView({ block: 'start',  behavior: 'smooth' });
-      }, 200);
+        scrollToElement(card);
+      }, 300);
     }
   }
 
