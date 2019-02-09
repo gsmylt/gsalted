@@ -70,7 +70,7 @@ export default class KeyStep extends Vue {
     {
       icon: 'bx-sync',
       title: 'Generate new',
-      message: 'Boom!',
+      message: ['Boom!', 'Yeah!', 'Kaboom!', 'Wow!', 'Nice!', 'Done!', 'Okay!'],
       click: () => { this.createNewKey(); },
     },
   ];

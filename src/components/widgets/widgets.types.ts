@@ -13,7 +13,7 @@ export interface Action {
   /**
    * The message that will be shown after the action was executed.
    */
-  message?: string;
+  message?: string | string[];
 
   /**
    * The click handler for the action button that executes the action.

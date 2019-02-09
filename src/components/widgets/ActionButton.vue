@@ -3,7 +3,7 @@
     <div class="action__icon"><i class="bx" :class="action.icon"></i></div>
     <div class="action__title">{{ action.title }}</div>
     <transition name="element">
-      <div v-if="action.message && hasExecuted" class="action__message message">{{ action.message }}</div>
+      <div v-if="action.message && hasExecuted" class="action__message message">{{ currentMessage }}</div>
     </transition>
   </a>
 </template>
@@ -11,7 +11,6 @@
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator';
 import { Action } from './widgets.types';
-import { setTimeout } from 'timers';
 
 @Component({
   components: {},
@@ -25,22 +24,48 @@ export default class ActionButton extends Vue {
   public action!: Action;
 
   /**
+   * The index of the message currently be used.
+   * This is only relevent if action.message is an array.
+   */
+  private messageIndex = 0;
+
+  /**
    * If the action has been executed recently.
    */
   private hasExecuted = false;
 
   /**
+   * The timeout for the timer message.
+   */
+  private timeout: number | null = null;
+
+  /**
+   * The current message, shown after the action has been executed.
+   */
+  private get currentMessage() {
+    if (Array.isArray(this.action.message)) {
+      return this.action.message[this.messageIndex];
+    }
+
+    return this.action.message;
+  }
+
+  /**
    * Executes the action handler.
    */
   private executeAction() {
-    if (this.hasExecuted) {
-      return false;
+    if (Array.isArray(this.action.message)) {
+      this.messageIndex =  Math.floor(Math.random() * this.action.message.length);
     }
 
     this.hasExecuted = true;
     this.action.click();
 
-    setTimeout(() => this.hasExecuted = false, 800);
+    if (this.timeout) {
+      window.clearTimeout(this.timeout);
+    }
+
+    this.timeout = window.setTimeout(() => this.hasExecuted = false, 800);
   }
 }
 </script>
