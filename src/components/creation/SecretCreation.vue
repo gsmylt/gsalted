@@ -29,6 +29,8 @@
             :isActive="state.currentStep === 3"
             :isFinished="state.currentStep > 3"
             :isLoading="state.isLoading"
+            :validityInSeconds="gsalt.validityInSeconds"
+            @changeValidity="updateValidity"
             @activate="activateStep(3)"
             @next="createLink()" />
 
@@ -117,6 +119,13 @@ export default class SecretCreation extends Vue {
    */
   private activateStep(newStep: number) {
     this.state.currentStep = newStep;
+  }
+
+  /**
+   * Updates the validity of the gsalt.
+   */
+  private updateValidity(value: number) {
+    this.gsalt.validityInSeconds = value;
   }
 
   /**

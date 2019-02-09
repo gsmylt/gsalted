@@ -215,5 +215,4 @@ export default class ShareStep extends Vue {
     }
   }
 }
-
 </style>
