@@ -35,18 +35,18 @@ export default class FeatureArea extends Vue {
     {
       icon: 'bx-file',
       title: 'Send files',
-      text: 'Your secret gets encrypted on client-side before we send it to the cloud.',
+      text: 'You can now even send files with gsalted in the same secure way.',
       badge: 'Coming soon',
     },
     {
       icon: 'bx-trash',
       title: 'We clean up for you',
-      text: 'Your secret gets encrypted on client-side before we send it to the cloud.',
+      text: 'Your secret will be deleted after 24 hours (we keep it up to 30 days if you really want).',
     },
     {
       icon: 'bx-like',
       title: 'Simple. Fun. Secure. Free.',
-      text: 'Your secret gets encrypted on client-side before we send it to the cloud.',
+      text: 'There are a lot of things you will like about gsalted - just try it out, it’s free.',
     },
   ];
 
