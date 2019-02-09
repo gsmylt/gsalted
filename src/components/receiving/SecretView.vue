@@ -17,6 +17,7 @@
             :isDisabledIfInactive="state.currentStep === 1"
             :isActive="state.currentStep === 2"
             :secret="secret"
+            :validityInSeconds="encrypted.validityInSeconds"
             :isDeleted="state.isDeleted"
             @delete="deleteSecret()"
             @new="createNewSecret()" />
@@ -25,80 +26,6 @@
       </div>
     </div>
   </AppLayout>
-
-  <!--
-  <div class="main secret-vue">
-    <form class="form" @submit.prevent="loadSecret()">
-      <div class="form__group">
-        <h2>1. We have a secret for you</h2>
-        <p>
-          Yeah, someone wants to share a secret with you.
-        </p>
-      </div>
-
-      <div class="form__group">
-        <h2>2. Enter your key</h2>
-        <p v-if="!state.isDecrypted">
-          Your buddy should have sent you a key.
-          Please enter it here so we can find out what the secret is.
-        </p>
-        <FormField 
-          v-model="gsalt.key"
-          icon="dripicons-lock"
-          fieldLabel="Key"
-          fieldPlaceholder="Enter the key"
-          :isReadonly="state.isDecrypted"
-          :isCopyable="state.isDecrypted"
-          :isAlternative="true" />
-      </div>
-
-      <div class="form__group">
-        <h2>3. Get your secret</h2>
-        <div v-if="!state.isDecrypted">
-          <p>
-            Now it's time to decrypt the secret.
-          </p>
-          <p class="text-error" v-if="state.isError">
-            Uups, we couldn't decrypt the secret.
-            Please check the entered key and try it again.
-            For security reasons, we'll delete the secret automatically after a few tries.
-          </p>
-        </div>
-        <div v-else>
-          <p>
-            Yeah, here is your secret:
-          </p>
-          <FormField 
-            v-model="secret"
-            icon="dripicons-jewel"
-            fieldLabel="Secret"
-            :isReadonly="state.isDecrypted"
-            :isCopyable="state.isDecrypted"
-            :isAlternative="true" />
-          <p class="small" v-if="!state.isDeleted">
-            We'll automatically delete your secret
-            <timeago :datetime="deletionDate"></timeago>. <br />You can
-            <a class="text-link" @click="deleteSecret()">delete it right now</a> if you want.
-          </p>
-          <p class="text-success" v-else>
-            We've deleted your secret from our server.
-          </p>
-        </div>
-      </div>
-
-      <div class="form__controls form__controls--columned">
-        <BaseButton 
-          v-if="!state.isDecrypted"
-          :isLoading="state.isLoading"
-          :isDisabled="!isSecretDecryptionEnabled"
-          :isSubmit="true"
-        >
-          Decrypt Secret
-        </BaseButton>
-      </div>
-    </form>
-  </div>
-  -->
 </template>
 
 <script lang="ts">
@@ -107,12 +34,12 @@ import { Vue, Component, Prop } from 'vue-property-decorator';
 import { api } from '@/api';
 import { Gsalt } from '@/core/gsalt';
 import { Generator } from '@/core/generator';
+import { MessageType } from '@/store/types';
 import AppLayout from './../app/AppLayout.vue';
 import AppHeader from './../app/AppHeader.vue';
 import AppFooter from './../app/AppFooter.vue';
 import KeyStep from './KeyStep.vue';
 import SecretStep from './SecretStep.vue';
-import { MessageType } from '@/store/types';
 
 @Component({
   components: { AppLayout, AppHeader, AppFooter, KeyStep, SecretStep },

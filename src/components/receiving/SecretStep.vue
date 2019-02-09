@@ -12,22 +12,30 @@
       Yeah! We have successfully decrypted the secret.
     </p>
 
-    <div class="fields" slot="form">
-      <div class="field">
-        <div class="field__title">Secret</div>
-        <div class="field__data">
-          <div v-if="showSecret" class="field__value">
-            {{ secret }}
+    <div slot="form">
+      <div class="fields">
+        <div class="field">
+          <div class="field__title">Secret</div>
+          <div class="field__data">
+            <div v-if="showSecret" class="field__value">
+              {{ secret }}
+            </div>
+            <div v-else class="field__value">
+              <span v-for="i in secret.length" :key="i" class="dot">&bull;</span>
+            </div>
           </div>
-          <div v-else class="field__value">
-            <span v-for="i in secret.length" :key="i" class="dot">&bull;</span>
+          <div class="field__actions">
+            <ActionList :actions="actions" />
           </div>
-        </div>
-        <div class="field__actions">
-          <ActionList :actions="actions" />
         </div>
       </div>
+      <div v-if="!isDeleted" class="details">
+        <p>
+          We'll automatically delete this secret from our servers in {{ validity }}.
+        </p>
+      </div>
     </div>
+    
 
     <div slot="controls" class="card-controls">
       <div>
@@ -48,6 +56,7 @@ import BaseButton from '@/components/base/BaseButton.vue';
 import StepCard from '@/components/widgets/StepCard.vue';
 import ActionList from '@/components/widgets/ActionList.vue';
 import { copyToClipboard } from '@/core/utility';
+import moment from 'moment';
 
 @Component({
   components: { BaseButton, ActionList, StepCard },
@@ -86,6 +95,12 @@ export default class ShareStep extends Vue {
   public isFinished!: boolean;
 
   /**
+   * The validity of the secret in seconds.
+   */
+  @Prop({ default: 0 })
+  public validityInSeconds!: number;
+
+  /**
    * If the secret is shown (instead of dots).
    */
   private showSecret = false;
@@ -108,6 +123,13 @@ export default class ShareStep extends Vue {
   ];
 
   /**
+   * Gets the validity as a string, e.g. "in 1 hour".
+   */
+  private get validity() {
+    return moment.duration(this.validityInSeconds, 'seconds').humanize();
+  }
+
+  /**
    * Toggles the visibility of the secret.
    */
   private toggleSecretVisibility() {
@@ -117,6 +139,7 @@ export default class ShareStep extends Vue {
 </script>
 
 <style lang="scss" scoped>
+/* Fields */
 .fields {
   margin-top: space(32);
 }
@@ -160,6 +183,15 @@ export default class ShareStep extends Vue {
   margin-top: space(8);
 }
 
+/* Details */
+.details {
+  margin-top: space(32);
+  color: color(neutral, 400);
+  font-size: font-size(14);
+}
+
+
+/* Card Controls */
 .card-controls {
   flex-grow: 1;
   display: flex;
