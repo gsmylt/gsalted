@@ -1,6 +1,6 @@
 <template>
   <nav class="navigation">
-    <BaseButton @click="goToSecretCreation()" btn-style="primary" color="secondary" class="btn">Share a secret</BaseButton>
+    <BaseButton @click="goToSecretCreation()" btn-style="outline" color="secondary" class="btn">Share a secret</BaseButton>
   </nav>
 </template>
 

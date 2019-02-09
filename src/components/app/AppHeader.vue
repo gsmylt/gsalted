@@ -24,7 +24,8 @@ export default class AppHeader extends Vue {}
 
 <style lang="scss" scoped>
 .header {
-  background-color: color(background);
+  border-bottom: 1px solid color(neutral, 200);
+  background-color: color(neutral, 100);
 }
 
 .header__content {
@@ -35,7 +36,7 @@ export default class AppHeader extends Vue {}
 
 .header__logo {
   display: block;
-  padding: space(32) 0;
+  padding: space() 0;
   text-decoration: none;
 }
 </style>
