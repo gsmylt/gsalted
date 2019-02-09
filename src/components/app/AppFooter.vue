@@ -12,7 +12,7 @@
         </div>
         <ul class="footer__nav nav">
           <li class="nav__item">
-            <a class="nav__link" href="mailto:hello@gsmylt.com"><i class="bx bx-at"></i> Contact</a>
+            <a class="nav__link" href="https://gsmylt.com/support" target="_blank"><i class="bx bx-at"></i> Contact</a>
           </li>
           <li class="nav__item">
             <a class="nav__link" href="https://github.com/gsmylt/gsalted/issues" target="_blank"><i class="bx bx-bug"></i> Report a Bug</a>
