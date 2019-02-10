@@ -6,8 +6,16 @@ const STORAGE_KEY = 'lang';
 const DEFAULT_LANG = 'en';
 
 export const initLanguage = () => {
-  const lang = loadFromLocalStorage(STORAGE_KEY);
-  const langKey = messages[lang] ? lang : DEFAULT_LANG;
+  const storedLang = loadFromLocalStorage(STORAGE_KEY);
+  const browserLang = navigator.language ? navigator.language.substr(0, 2) : null;
+  let langKey = DEFAULT_LANG;
+
+  if (storedLang && messages[storedLang]) {
+    langKey = storedLang;
+  } else if (browserLang && messages[browserLang]) {
+    langKey = browserLang;
+  }
+
   setLangForAllLibs(langKey);
 };
 
