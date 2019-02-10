@@ -1,16 +1,13 @@
 <template>
   <StepCard
     :stepNumber="2"
-    stepTitle="The key for encryption"
+    :stepTitle="$t('SECRET_CREATION.KEY_STEP.TITLE')"
     :isOpen="isActive"
     :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     @activate="$emit('activate')"
   >
-    <p slot="description">
-      The key is used to encrypt your secret (along with a generated random key, but don't care about that).
-      It should be as long as possible but easy to remember. You'll have to send it to your friend.
-    </p>
+    <p slot="description">{{ $t('SECRET_CREATION.KEY_STEP.DESCRIPTION') }}</p>
     <FormField 
       slot="form"
       :fieldValue="encryptionKey"
@@ -18,10 +15,12 @@
       icon="bx-key"
       :actionList="actions"
       fieldLabel="Key"
-      fieldPlaceholder="Enter a key"
+      :fieldPlaceholder="$t('SECRET_CREATION.KEY_STEP.FIELDS.KEY_PLACEHOLDER')"
       :isAlternative="true"
     />
-    <BaseButton @click="$emit('next')" slot="controls" :isDisabled="!isNextEnabled" iconAfter="bx-chevron-right">Next</BaseButton>
+    <BaseButton @click="$emit('next')" slot="controls" :isDisabled="!isNextEnabled" iconAfter="bx-chevron-right">
+      {{ $t('SECRET_CREATION.KEY_STEP.NEXT') }}
+    </BaseButton>
   </StepCard>
 </template>
 
@@ -69,8 +68,16 @@ export default class KeyStep extends Vue {
   private actions: Action[] = [
     {
       icon: 'bx-sync',
-      title: 'Generate new',
-      message: ['Boom!', 'Yeah!', 'Kaboom!', 'Wow!', 'Nice!', 'Done!', 'Okay!'],
+      title: 'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY',
+      message: [
+        'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_1',
+        'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_2',
+        'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_3',
+        'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_4',
+        'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_5',
+        'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_6',
+        'SECRET_CREATION.KEY_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_7',
+      ],
       click: () => { this.createNewKey(); },
     },
   ];

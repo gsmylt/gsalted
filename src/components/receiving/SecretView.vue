@@ -144,7 +144,7 @@ export default class SecretView extends Vue {
       this.state.isLoading = false;
       this.$store.commit('toast', {
         type: MessageType.ERROR,
-        message: 'Oh no, decryption failed. Please check your key!',
+        message: 'SECRET_RECEIVING.DECRYPTION_ERROR_MSG',
       });
     });
   }
@@ -159,7 +159,7 @@ export default class SecretView extends Vue {
 
     this.$store.commit('toast', {
       type: MessageType.SUCCESS,
-      message: 'We deleted your secret!',
+      message: 'SECRET_RECEIVING.DELETE_SUCCESS_MSG',
     });
   }
 }

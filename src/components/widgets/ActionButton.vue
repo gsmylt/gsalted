@@ -1,9 +1,9 @@
 <template>
   <a class="action" @click="executeAction()">
     <div class="action__icon"><i class="bx" :class="action.icon"></i></div>
-    <div class="action__title">{{ action.title }}</div>
+    <div class="action__title">{{ $t(action.title) }}</div>
     <transition name="element">
-      <div v-if="action.message && hasExecuted" class="action__message message">{{ currentMessage }}</div>
+      <div v-if="action.message && hasExecuted" class="action__message message">{{ $t(currentMessage) }}</div>
     </transition>
   </a>
 </template>

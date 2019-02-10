@@ -1,7 +1,7 @@
 <template>
   <StepCard
     :stepNumber="2"
-    stepTitle="Get the secret"
+    :stepTitle="$t('SECRET_RECEIVING.SECRET_STEP.TITLE')"
     :isOpen="isActive"
     :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
@@ -9,13 +9,15 @@
     @activate="$emit('activate')"
   >
     <p slot="description">
-      Yeah! We have successfully decrypted the secret.
+      {{ $t('SECRET_RECEIVING.SECRET_STEP.DESCRIPTION') }}
     </p>
 
     <div slot="form">
       <div class="fields">
         <div class="field">
-          <div class="field__title">Secret</div>
+          <div class="field__title">
+            {{ $t('SECRET_RECEIVING.SECRET_STEP.FIELDS.SECRET_LABEL') }}
+          </div>
           <div class="field__data">
             <div v-if="showSecret" class="field__value">
               {{ secret }}
@@ -31,18 +33,21 @@
       </div>
       <div v-if="!isDeleted" class="details">
         <p>
-          We'll automatically delete this secret from our servers in {{ validity }}.
+          {{ $t('SECRET_RECEIVING.SECRET_STEP.DELETE_INFO', { validity: validity }) }}
         </p>
       </div>
     </div>
-    
 
     <div slot="controls" class="card-controls">
       <div>
-        <BaseButton v-if="!isDeleted" @click="$emit('delete')" btnStyle="outline" color="danger">Delete secret</BaseButton>
+        <BaseButton v-if="!isDeleted" @click="$emit('delete')" btnStyle="outline" color="danger">
+          {{ $t('SECRET_RECEIVING.SECRET_STEP.DELETE_SECRET') }}
+        </BaseButton>
       </div>
       <div>
-        <BaseButton @click="$emit('new')" btnStyle="primary">Share your own secret</BaseButton>
+        <BaseButton @click="$emit('new')" btnStyle="primary">
+          {{ $t('SECRET_RECEIVING.SECRET_STEP.SHARE_NEW_SECRET') }}
+        </BaseButton>
       </div>
     </div>
   </StepCard>
@@ -111,13 +116,13 @@ export default class ShareStep extends Vue {
   private actions: Action[] = [
     {
       icon: 'bx-copy',
-      title: 'Copy to clipboard',
-      message: 'Copied',
+      title: 'SECRET_RECEIVING.SECRET_STEP.ACTIONS.COPY_TO_CLIPBOARD',
+      message: 'SECRET_RECEIVING.SECRET_STEP.ACTIONS.COPY_TO_CLIPBOARD_MSG',
       click: () => copyToClipboard(this.secret),
     },
     {
       icon: 'bx-show',
-      title: 'Toggle visibility',
+      title: 'SECRET_RECEIVING.SECRET_STEP.ACTIONS.TOGGLE_VISIBILITY',
       click: () => this.toggleSecretVisibility(),
     },
   ];

@@ -1,7 +1,7 @@
 <template>
   <div class="area container">
     <div class="area__content container-content">
-      <h1 class="area__title">Why we love gsalted and you'll too</h1>
+      <h1 class="area__title">{{ $t('FEATURE_AREA.TITLE') }}</h1>
       <div class="area__features">
         <div v-for="(feature,idx) of features" :key="idx" class="feature">
           <div class="feature__icon">
@@ -9,10 +9,10 @@
           </div>
           <div class="feature__content">
             <div class="feature__title">
-              <span>{{ feature.title }}</span>
-              <span v-if="feature.badge" class="feature__badge">{{ feature.badge }}</span>
+              <span>{{ $t(feature.title) }}</span>
+              <span v-if="feature.badge" class="feature__badge">{{ $t(feature.badge) }}</span>
             </div>
-            <div class="feature__text">{{ feature.text }}</div>
+            <div class="feature__text">{{ $t(feature.text) }}</div>
           </div>
         </div>
       </div>
@@ -29,24 +29,24 @@ export default class FeatureArea extends Vue {
   private features = [
     {
       icon: 'bx-lock',
-      title: 'Always encrypted',
-      text: 'Your secret gets encrypted on client-side before we send it to the cloud.',
+      title: 'FEATURE_AREA.ENCRYPTED.TITLE',
+      text: 'FEATURE_AREA.ENCRYPTED.TEXT',
     },
     {
       icon: 'bx-file',
-      title: 'Send files',
-      text: 'You can now even send files with gsalted in the same secure way.',
-      badge: 'Coming soon',
+      title: 'FEATURE_AREA.FILES.TITLE',
+      text: 'FEATURE_AREA.FILES.TEXT',
+      badge: 'FEATURE_AREA.FILES.BADGE',
     },
     {
       icon: 'bx-trash',
-      title: 'We clean up for you',
-      text: 'Your secret will be deleted after 24 hours (we keep it up to 30 days if you really want).',
+      title: 'FEATURE_AREA.CLEAN_UP.TITLE',
+      text: 'FEATURE_AREA.CLEAN_UP.TEXT',
     },
     {
       icon: 'bx-like',
-      title: 'Simple. Fun. Secure. Free.',
-      text: 'There are a lot of things you will like about gsalted - just try it out, it’s free.',
+      title: 'FEATURE_AREA.LIKE.TITLE',
+      text: 'FEATURE_AREA.LIKE.TEXT',
     },
   ];
 

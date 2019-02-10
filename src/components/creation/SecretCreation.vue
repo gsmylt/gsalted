@@ -167,7 +167,7 @@ export default class SecretCreation extends Vue {
       this.state.isGenerated = false;
       this.$store.commit('toast', {
         type: MessageType.ERROR,
-        message: 'Something went wrong, please try again.',
+        message: 'SECRET_CREATION.SAVE_ERROR_MSG',
       });
     });
   }
@@ -180,7 +180,7 @@ export default class SecretCreation extends Vue {
     this.reset();
     setTimeout(() => {
       this.$store.commit('toast', {
-        message: 'Your secret has been deleted. Let\'s share a new one!',
+        message: 'SECRET_CREATION.DELETE_SUCCESS_MSG',
         type: MessageType.SUCCESS,
       } as Toast);
     }, 500);

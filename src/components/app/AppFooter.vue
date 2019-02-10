@@ -7,18 +7,22 @@
             <AppLogo :gray="true" />
           </div>
           <div class="footer__copyright">
-            Made with <span class="heart"><i class="bx bxs-heart"></i></span> by <a href="https://gsmylt.com/" target="_blank">gsmylt</a> in Lucerne, Switzerland
+            {{ $t('FOOTER.COPYRIGHT_MADE_WITH') }}
+            <span class="heart"><i class="bx bxs-heart"></i></span>
+            {{ $t('FOOTER.COPYRIGHT_BY') }}
+            <a href="https://gsmylt.com/" target="_blank">gsmylt</a>
+            <span> {{ $t('FOOTER.COPYRIGHT_LOCATION') }}</span>
           </div>
         </div>
         <ul class="footer__nav nav">
           <li class="nav__item">
-            <a class="nav__link" href="https://gsmylt.com/support" target="_blank"><i class="bx bx-at"></i> Contact</a>
+            <a class="nav__link" href="https://gsmylt.com/support" target="_blank"><i class="bx bx-at"></i> {{ $t('FOOTER.CONTACT') }}</a>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="https://github.com/gsmylt/gsalted/issues" target="_blank"><i class="bx bx-bug"></i> Report a Bug</a>
+            <a class="nav__link" href="https://github.com/gsmylt/gsalted/issues" target="_blank"><i class="bx bx-bug"></i> {{ $t('FOOTER.REPORT_BUG') }}</a>
           </li>
           <li class="nav__item">
-            <a class="nav__link" href="http://donate.sandroroth.com" target="_blank"><i class="bx bx-dollar"></i> Donate</a>
+            <a class="nav__link" href="http://donate.sandroroth.com" target="_blank"><i class="bx bx-dollar"></i> {{ $t('FOOTER.DONATE') }}</a>
           </li>
         </ul>
       </div>
@@ -33,7 +37,8 @@ import AppLogo from './AppLogo.vue';
 @Component({
   components: { AppLogo },
 })
-export default class AppFooter extends Vue {}
+export default class AppFooter extends Vue {
+}
 </script>
 
 <style lang="scss" scoped>

@@ -1,21 +1,20 @@
 <template>
   <StepCard
     :stepNumber="4"
-    stepTitle="Share your secret"
+    :stepTitle="$t('SECRET_CREATION.SHARE_STEP.TITLE')"
     :isOpen="isActive"
     :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     :isLast="true"
     @activate="$emit('activate')"
   >
-    <p slot="description">
-      Yeah! We have encrypted your secret. Send the share link and your encryption key to your buddy.
-      Please use two different mediums (e.g. e-mail and iMessage) to send them.
-    </p>
+    <p slot="description">{{ $t('SECRET_CREATION.SHARE_STEP.DESCRIPTION') }}</p>
 
     <div class="fields" slot="form">
       <div class="field">
-        <div class="field__title">Sharing Link</div>
+        <div class="field__title">
+          {{ $t('SECRET_CREATION.SHARE_STEP.FIELDS.SHARING_LINK_LABEL') }}
+        </div>
         <div class="field__data">
           <div class="field__value">{{ link }}</div>
         </div>
@@ -25,7 +24,9 @@
       </div>
 
       <div class="field">
-        <div class="field__title">Encryption Key</div>
+        <div class="field__title">
+          {{ $t('SECRET_CREATION.SHARE_STEP.FIELDS.ENCRYPTION_LINK_LABEL') }}
+        </div>
         <div class="field__data">
           <div class="field__value">{{ encryptionKey }}</div>
         </div>
@@ -35,7 +36,9 @@
       </div>
 
       <div class="field">
-        <div class="field__title">Secret</div>
+        <div class="field__title">
+          {{ $t('SECRET_CREATION.SHARE_STEP.FIELDS.SECRET_LABEL') }}
+        </div>
         <div class="field__data">
           <div class="field__value">
             <span v-for="i in secret.length" :key="i" class="dot">&bull;</span>
@@ -49,10 +52,14 @@
 
     <div slot="controls" class="card-controls">
       <div>
-        <BaseButton @click="$emit('delete')" btnStyle="outline" color="danger">Delete secret</BaseButton>
+        <BaseButton @click="$emit('delete')" btnStyle="outline" color="danger">
+          {{ $t('SECRET_CREATION.SHARE_STEP.DELETE') }}
+        </BaseButton>
       </div>
       <div>
-        <BaseButton @click="$emit('reset')" btnStyle="primary">Share a new secret</BaseButton>
+        <BaseButton @click="$emit('reset')" btnStyle="primary">
+          {{ $t('SECRET_CREATION.SHARE_STEP.SHARE_NEW') }}
+        </BaseButton>
       </div>
     </div>
     
@@ -117,30 +124,30 @@ export default class ShareStep extends Vue {
     key: [
       {
         icon: 'bx-copy',
-        title: 'Copy to clipboard',
-        message: 'Copied',
+        title: 'SECRET_CREATION.SHARE_STEP.ACTIONS.COPY_TO_CLIPBOARD',
+        message: 'SECRET_CREATION.SHARE_STEP.ACTIONS.COPY_TO_CLIPBOARD_MSG',
         click: () => { copyToClipboard(this.encryptionKey); },
       },
     ],
     link: [
       {
         icon: 'bx-copy',
-        title: 'Copy to clipboard',
-        message: 'Copied',
+        title: 'SECRET_CREATION.SHARE_STEP.ACTIONS.COPY_TO_CLIPBOARD',
+        message: 'SECRET_CREATION.SHARE_STEP.ACTIONS.COPY_TO_CLIPBOARD_MSG',
         click: () => { copyToClipboard(this.link); },
       },
       {
         icon: 'bx-at',
-        title: 'Send by mail',
-        message: 'Happy mailing',
+        title: 'SECRET_CREATION.SHARE_STEP.ACTIONS.SEND_BY_MAIL',
+        message: 'SECRET_CREATION.SHARE_STEP.ACTIONS.SEND_BY_MAIL_MSG',
         click: () => this.sendByMail(),
       },
     ],
     secret: [
       {
         icon: 'bx-copy',
-        title: 'Copy to clipboard',
-        message: 'Copied',
+        title: 'SECRET_CREATION.SHARE_STEP.ACTIONS.COPY_TO_CLIPBOARD',
+        message: 'SECRET_CREATION.SHARE_STEP.ACTIONS.COPY_TO_CLIPBOARD_MSG',
         click: () => { copyToClipboard(this.secret); },
       },
     ],
@@ -150,8 +157,9 @@ export default class ShareStep extends Vue {
    * Opens the mail client including the link to send it by e-mail.
    */
   private sendByMail() {
-    /* tslint:disable-next-line max-line-length */
-    const mailTo = `mailto:?subject=gsalted&body=Hi%2C%0A%0AI%20want%20to%20share%20a%20secret%20with%20you%3A%0A${this.link}`;
+    const mailTo = this.$t('SECRET_CREATION.SHARE_STEP.ACTIONS.MAILTO_LINK', {
+      link: this.link,
+    }).toString();
     window.location.href = mailTo;
   }
 }

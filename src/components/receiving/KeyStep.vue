@@ -1,7 +1,7 @@
 <template>
   <StepCard
     :stepNumber="1"
-    stepTitle="The key for decryption"
+    :stepTitle="$t('SECRET_RECEIVING.KEY_STEP.TITLE')"
     :isOpen="isActive"
     :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
@@ -9,9 +9,7 @@
     @activate="$emit('activate')"
   >
     <p slot="description">
-      The key will be needed to decrypt the secret.
-      Please ask your friend if you have not received the key.
-      The secret cannot be decrypted without the key.
+      {{ $t('SECRET_RECEIVING.KEY_STEP.DESCRIPTION') }}
     </p>
     <FormField 
       slot="form"
@@ -19,7 +17,7 @@
       @change="updateKey"
       icon="bx-key"
       fieldLabel="Key"
-      fieldPlaceholder="Enter the key"
+      :fieldPlaceholder="$t('SECRET_RECEIVING.KEY_STEP.FIELDS.KEY_PLACEHOLDER')"
       :isAlternative="true"
     />
     <BaseButton
@@ -29,7 +27,7 @@
       :isLoading="isLoading"
       iconAfter="bx-chevron-right"
     >
-      Decrypt secret
+      {{ $t('SECRET_RECEIVING.KEY_STEP.DECRYPT_SECRET') }}
     </BaseButton>
   </StepCard>
 </template>

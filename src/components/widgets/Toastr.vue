@@ -12,7 +12,7 @@
           'toast--error': toast.type == messageTypes.ERROR,
         }"
       >
-        {{ toast.message }}
+        {{ $t(toast.message) }}
       </div>
     </transition-group>
   </div>

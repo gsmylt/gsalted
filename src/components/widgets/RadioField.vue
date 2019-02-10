@@ -10,7 +10,7 @@
         :class="{ 'option--active': (value === option.value) }"
       >
         <span class="option__label">{{ option.label }}</span>
-        <span class="option__unit">{{ option.unit }}</span>
+        <span class="option__unit">{{ $t(option.unit) }}</span>
       </a>
     </div>
   </div>
@@ -38,7 +38,7 @@ export default class RadioField extends Vue {
    * The list of options
    */
   @Prop({ required: true })
-  public options!: Array<{ label: string; unit: string, value: any; }>;
+  public options!: Array<{ label: number; unit: string, value: any; }>;
 
   /**
    * Selected the given option.

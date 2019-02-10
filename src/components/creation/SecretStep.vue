@@ -1,17 +1,14 @@
 <template>
   <StepCard
     :stepNumber="1"
-    stepTitle="Your secret"
+    :stepTitle="$t('SECRET_CREATION.SECRET_STEP.TITLE')"
     :isOpen="isActive"
     :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     :isFirst="true"
     @activate="$emit('activate')"
   >
-    <p slot="description">
-      The secret is what you want to share with your buddy,
-      be it a password or something else. Use the password we generated for you or enter your own.
-    </p>
+    <p slot="description">{{ $t('SECRET_CREATION.SECRET_STEP.DESCRIPTION') }}</p>
     <FormField 
       slot="form"
       :fieldValue="secret"
@@ -19,10 +16,12 @@
       icon="bx-lock"
       :actionList="actions"
       fieldLabel="Secret"
-      fieldPlaceholder="Enter a secret"
+      :fieldPlaceholder="$t('SECRET_CREATION.SECRET_STEP.FIELDS.SECRET_PLACEHOLDER')"
       :isAlternative="true"
     />
-    <BaseButton @click="$emit('next')" slot="controls" :isDisabled="!isNextEnabled" iconAfter="bx-chevron-right">Next</BaseButton>
+    <BaseButton @click="$emit('next')" slot="controls" :isDisabled="!isNextEnabled" iconAfter="bx-chevron-right">
+      {{ $t('SECRET_CREATION.SECRET_STEP.NEXT') }}
+    </BaseButton>
   </StepCard>
 </template>
 
@@ -70,8 +69,16 @@ export default class SecretStep extends Vue {
   private actions: Action[] = [
     {
       icon: 'bx-sync',
-      title: 'Generate new',
-      message: ['Boom!', 'Yeah!', 'Kaboom!', 'Wow!', 'Nice!', 'Done!', 'Okay!'],
+      title: 'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_SECRET',
+      message: [
+        'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_1',
+        'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_2',
+        'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_3',
+        'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_4',
+        'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_5',
+        'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_6',
+        'SECRET_CREATION.SECRET_STEP.ACTIONS.GENERATE_NEW_KEY_MSG_7',
+      ],
       click: () => { this.createNewSecret(); },
     },
     /* TODO: Implement multiline secrets

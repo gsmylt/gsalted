@@ -2,19 +2,21 @@
   <div class="hero container">
     <div class="hero__content container-content">
       <div class="hero__text">
-        <h1 class="hero__title desktop">Sending secrets made secure.</h1>
-        <p class="desktop">
-          From time to time you need to share a password or some other secret with your buddy. gsalted helps you to transfer secrets in a secure way.
-        </p>
-        <p class="desktop">
-          We use client-side encryption to ensure that no one else than you and your buddy can read your passwords.
-        </p>
+        <h1 class="hero__title desktop">
+          {{ $t('HERO.TITLE') }}
+        </h1>
+        <p class="desktop">{{ $t('HERO.TEXT_1') }}</p>
+        <p class="desktop">{{ $t('HERO.TEXT_2') }}</p>
         <div>
-          <BaseButton @click="goToSecretCreation()" btn-style="secondary" color="light">Let's share</BaseButton>
+          <BaseButton @click="goToSecretCreation()" btn-style="secondary" color="light">
+            {{ $t('HERO.SHARE') }}
+          </BaseButton>
         </div>
       </div>
       <div class="hero__drawing"></div>
-      <h1 class="hero__title mobile">Sending secrets made secure.</h1>
+      <h1 class="hero__title mobile">
+        {{ $t('HERO.TITLE_MOBILE') }}
+      </h1>
     </div>
   </div>
 </template>

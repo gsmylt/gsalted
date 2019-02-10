@@ -1,20 +1,17 @@
 <template>
   <StepCard
     :stepNumber="3"
-    stepTitle="Do the magic"
+    :stepTitle="$t('SECRET_CREATION.MAGIC_STEP.TITLE')"
     :isOpen="isActive"
     :isFinished="isFinished"
     :isDisabledIfInactive="isDisabledIfInactive"
     @activate="$emit('activate')"
   >
-    <p slot="description">
-      Are you ready to share your secret? We'll encrypt your secret and upload it into the cloud <i class="bx bx-cloud"></i>.
-      We then provide you a unique link that you can share with your buddy.
-    </p>
+    <p slot="description" v-html="$t('SECRET_CREATION.MAGIC_STEP.DESCRIPTION')"></p>
 
     <div v-if="showAdvancedOptions" class="advanced-options" slot="form">
       <RadioField
-        label="Delete automatically"
+        :label="$t('SECRET_CREATION.MAGIC_STEP.DELETE_AUTOMATICALLY_LABEL')"
         :options="validityOptions"
         :value="validityInSeconds"
         @change="changeValidity" />
@@ -27,7 +24,7 @@
           btnStyle="outline"
           @click="showAdvancedOptions = true"
         >
-          Advanced options
+          {{ $t('SECRET_CREATION.MAGIC_STEP.ADVANCED_OPTIONS') }}
         </BaseButton>
       </div>
       <div>
@@ -36,7 +33,7 @@
           :isLoading="isLoading"
           @click="$emit('next')"
         >
-          Generate link
+          {{ $t('SECRET_CREATION.MAGIC_STEP.GENERATE_LINK') }}
         </BaseButton>
       </div>
     </div>
@@ -97,11 +94,11 @@ export default class MagicStep extends Vue {
    * The list of options for the validity of the secret.
    */
   private validityOptions = [
-    { label: '2', unit: 'hours', value: 2 * 60 * 60 },
-    { label: '24', unit: 'hours', value: 24 * 60 * 60 },
-    { label: '2', unit: 'days', value: 2 * 24 * 60 * 60 },
-    { label: '1', unit: 'week', value: 7 * 24 * 60 * 60 },
-    { label: '1', unit: 'month', value: 30 * 24 * 60 * 60 },
+    { label: 2, unit: 'SECRET_CREATION.MAGIC_STEP.VALIDITY.HOURS', value: 2 * 60 * 60 },
+    { label: 24, unit: 'SECRET_CREATION.MAGIC_STEP.VALIDITY.HOURS', value: 24 * 60 * 60 },
+    { label: 2, unit: 'SECRET_CREATION.MAGIC_STEP.VALIDITY.DAYS', value: 2 * 24 * 60 * 60 },
+    { label: 1, unit: 'SECRET_CREATION.MAGIC_STEP.VALIDITY.WEEK', value: 7 * 24 * 60 * 60 },
+    { label: 1, unit: 'SECRET_CREATION.MAGIC_STEP.VALIDITY.MONTH', value: 30 * 24 * 60 * 60 },
   ];
 
   /**

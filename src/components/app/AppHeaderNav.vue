@@ -1,6 +1,8 @@
 <template>
   <nav class="navigation">
-    <BaseButton @click="goToSecretCreation()" btn-style="outline" color="secondary" class="btn">Share a secret</BaseButton>
+    <BaseButton @click="goToSecretCreation()" btn-style="outline" color="secondary" class="btn">
+      {{ $t('HEADER.NAV.SHARE_SECRET') }}
+    </BaseButton>
   </nav>
 </template>
 
