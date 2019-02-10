@@ -5,7 +5,7 @@ export const english: Localization = {
 
   TIME: {
     relativeTime: {
-      future: 'in123 %s',
+      future: 'in %s',
       past: '%s ago',
       s:  'seconds',
       m:  'a minute',
@@ -38,7 +38,7 @@ export const english: Localization = {
   FEATURE_AREA: {
     TITLE: 'Why we love gsalted and you\'ll too',
     ENCRYPTED: {
-      TITLE: 'ALWAYS_ENCRYPTED',
+      TITLE: 'Always encrypted',
       TEXT: 'Your secret gets encrypted on client-side before we send it to the cloud.',
     },
     FILES: {
