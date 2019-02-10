@@ -13,6 +13,10 @@ export const scrollToElement = (element: HTMLDivElement, padding = 40) => {
   scrollToPosition(diff);
 };
 
+export const scrollToTop = () => {
+  scrollToPosition((window.scrollY * -1));
+};
+
 const scrollToPosition = (change: number, duration = 300) => {
   const start = window.scrollY;
   const increment = 20;

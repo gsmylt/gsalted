@@ -163,6 +163,5 @@ export const english: Localization = {
     COPYRIGHT_MADE_WITH: 'Made with ',
     COPYRIGHT_BY: ' by ',
     COPYRIGHT_LOCATION: ' in Lucerne, Switzerland',
-
   },
 };

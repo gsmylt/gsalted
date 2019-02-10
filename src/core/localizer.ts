@@ -6,6 +6,11 @@ const STORAGE_KEY = 'lang';
 const DEFAULT_LANG = 'en';
 
 export const initLanguage = () => {
+  const langKey = getCurrentLang();
+  setLangForAllLibs(langKey);
+};
+
+export const getCurrentLang = () => {
   const storedLang = loadFromLocalStorage(STORAGE_KEY);
   const browserLang = navigator.language ? navigator.language.substr(0, 2) : null;
   let langKey = DEFAULT_LANG;
@@ -16,7 +21,7 @@ export const initLanguage = () => {
     langKey = browserLang;
   }
 
-  setLangForAllLibs(langKey);
+  return langKey;
 };
 
 export const changeLanguage = (key: string) => {

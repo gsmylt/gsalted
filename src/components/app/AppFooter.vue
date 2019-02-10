@@ -26,6 +26,9 @@
           </li>
         </ul>
       </div>
+      <div class="footer__langs">
+        <LangSwitcher />
+      </div>
     </div>
   </footer>
 </template>
@@ -33,9 +36,10 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import AppLogo from './AppLogo.vue';
+import LangSwitcher from '@/components/widgets/LangSwitcher.vue';
 
 @Component({
-  components: { AppLogo },
+  components: { AppLogo, LangSwitcher },
 })
 export default class AppFooter extends Vue {
 }
@@ -65,6 +69,12 @@ export default class AppFooter extends Vue {
   a:hover {
     text-decoration: underline;
   }
+}
+
+.footer__langs {
+  margin-top: space(32);
+  padding-top: space(32);
+  border-top: 1px solid color(neutral, 200);
 }
 
 .heart:hover .bx {

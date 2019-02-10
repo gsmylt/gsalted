@@ -28,8 +28,8 @@ export const german: Localization = {
   },
 
   HERO: {
-    TITLE: 'Versende Geheimnisse einfach und sicher.',
-    TITLE_MOBILE: 'Versende Geheimnisse einfach und sicher.',
+    TITLE: 'Passwörter einfach und sicher versenden.',
+    TITLE_MOBILE: 'Passwörter einfach und sicher versenden.',
     TEXT_1: 'Von Zeit zu Zeit musst du ein Passwort oder ein anderes Geheimnis mit jemandem teilen. gsalted hilft dir dabei, dein Geheimnis sicher zu versenden.',
     TEXT_2: 'Wir nutzen client-seitige Verschlüsselung um sicherzustellen, dass niemand ausser dir und deinem Freund das Passwort lesen kann.',
     SHARE: 'Jetzt ausprobieren',
