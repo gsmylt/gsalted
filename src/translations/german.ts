@@ -61,7 +61,7 @@ export const german: Localization = {
     DELETE_SUCCESS_MSG: 'Dein Geheimnis wurde gelöscht. Zeit, ein neues zu teilen.',
     KEY_STEP: {
       TITLE: 'Der Schlüssel zum Verschlüsseln',
-      DESCRIPTION: 'Der Schlüssel wird genutzt um dein Geheimnis zu verschlüsseln (zusammen mit einem zufällig generierten Schlüssel, aber das muss dich nicht kümmern). Er sollte solange wie möglich, aber auch einfach zu merken sein. Zu wirst in deine Kollegen mitteilen müssen.',
+      DESCRIPTION: 'Der Schlüssel wird genutzt um dein Geheimnis zu verschlüsseln (zusammen mit einem zufällig generierten Schlüssel, aber das muss dich nicht kümmern). Er sollte solange wie möglich, aber auch einfach zu merken sein. Du wirst ihn deinem Kollegen mitteilen müssen.',
       NEXT: 'Weiter',
       FIELDS: {
         KEY_PLACEHOLDER: 'Schlüssel',
